@@ -23,9 +23,9 @@ import java.util.*
  */
 @Config
 class StandardTrackingWheelLocalizer(hardwareMap: HardwareMap) : ThreeTrackingWheelLocalizer(Arrays.asList(
-        Pose2d(0, LATERAL_DISTANCE / 2, 0),  // left
-        Pose2d(0, -LATERAL_DISTANCE / 2, 0),  // right
-        Pose2d(FORWARD_OFFSET, 0, Math.toRadians(90.0)) // front
+        Pose2d(0.0, LATERAL_DISTANCE / 2, 0.0),  // left
+        Pose2d(0.0, -LATERAL_DISTANCE / 2, 0.0),  // right
+        Pose2d(FORWARD_OFFSET, 0.0, Math.toRadians(90.0)) // front
 )) {
     private val leftEncoder: Encoder
     private val rightEncoder: Encoder

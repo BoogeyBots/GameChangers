@@ -121,7 +121,7 @@ class DriveVelocityPIDTuner : LinearOpMode() {
             }
             val motionState = activeProfile[profileTime]
             val targetPower = DriveConstants.kV * motionState.v
-            drive!!.setDrivePower(Pose2d(targetPower, 0, 0))
+            drive!!.setDrivePower(Pose2d(targetPower, 0.0, 0.0))
             val velocities = drive!!.getWheelVelocities()
 
             // update telemetry
@@ -139,8 +139,8 @@ class DriveVelocityPIDTuner : LinearOpMode() {
         var DISTANCE = 72.0 // in
         private const val PID_VAR_NAME = "VELO_PID"
         private fun generateProfile(movingForward: Boolean): MotionProfile {
-            val start = MotionState(if (movingForward) 0 else DISTANCE, 0, 0, 0)
-            val goal = MotionState(if (movingForward) DISTANCE else 0, 0, 0, 0)
+            val start = MotionState(if (movingForward) 0.0 else DISTANCE, 0.0, 0.0, 0.0)
+            val goal = MotionState(if (movingForward) DISTANCE else 0.0, 0.0, 0.0, 0.0)
             return MotionProfileGenerator.generateSimpleMotionProfile(start, goal,
                     DriveConstants.BASE_CONSTRAINTS.maxVel,
                     DriveConstants.BASE_CONSTRAINTS.maxAccel,

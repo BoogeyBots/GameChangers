@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.util
 
 import com.qualcomm.hardware.bosch.BNO055IMU
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder
+import kotlin.experimental.and
 
 /**
  * Various utility functions for the BNO055 IMU.
@@ -30,8 +31,8 @@ object BNO055IMUUtil {
             // the BNO055 driver flips the first orientation vector so we also flip here
             val axisMapSign = signs.bVal xor (4 shr indices[0])
 
-            // Enter CONFIG mode
-            imu.write8(BNO055IMU.Register.OPR_MODE, BNO055IMU.SensorMode.CONFIG.bVal and 0x0F)
+            // Enter CONFIG mode                                            //converire fct de mine doamne ajuta
+            imu.write8(BNO055IMU.Register.OPR_MODE, BNO055IMU.SensorMode.CONFIG.bVal.toInt() and  0x0F)
             Thread.sleep(100)
 
             // Write the AXIS_MAP_CONFIG register
@@ -40,8 +41,8 @@ object BNO055IMUUtil {
             // Write the AXIS_MAP_SIGN register
             imu.write8(BNO055IMU.Register.AXIS_MAP_SIGN, axisMapSign and 0x07)
 
-            // Switch back to the previous mode
-            imu.write8(BNO055IMU.Register.OPR_MODE, imu.parameters.mode.bVal and 0x0F)
+            // Switch back to the previous mode                             //converire fct de mine doamne ajuta
+            imu.write8(BNO055IMU.Register.OPR_MODE, imu.parameters.mode.bVal.toInt() and 0x0F)
             Thread.sleep(100)
         } catch (e: InterruptedException) {
             Thread.currentThread().interrupt()

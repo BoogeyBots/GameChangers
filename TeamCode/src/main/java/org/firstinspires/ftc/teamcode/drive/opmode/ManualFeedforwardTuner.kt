@@ -53,14 +53,14 @@ class ManualFeedforwardTuner : LinearOpMode() {
             }
             val motionState = activeProfile[profileTime]
             val targetPower = calculateMotorFeedforward(motionState.v, motionState.a, DriveConstants.kV, DriveConstants.kA, DriveConstants.kStatic)
-            drive!!.setDrivePower(Pose2d(targetPower, 0, 0))
+            drive!!.setDrivePower(Pose2d(targetPower, 0.0, 0.0))
             drive!!.updatePoseEstimate()
 
             // update telemetry
             telemetry.addData("targetVelocity", motionState.v)
-            val (currentVelo) = Objects.requireNonNull(drive!!.poseVelocity, "poseVelocity() must not be null. Ensure that the getWheelVelocities() method has been overridden in your localizer.")
+            val currentVelo = Objects.requireNonNull(drive!!.poseVelocity, "poseVelocity() must not be null. Ensure that the getWheelVelocities() method has been overridden in your localizer.")
             telemetry.addData("poseVelocity", currentVelo)
-            telemetry.addData("error", currentVelo - motionState.v)
+            telemetry.addData("error", currentVelo.toString().toDouble() - (motionState.v))
             telemetry.update()
         }
     }
@@ -68,8 +68,8 @@ class ManualFeedforwardTuner : LinearOpMode() {
     companion object {
         var DISTANCE = 72.0 // in
         private fun generateProfile(movingForward: Boolean): MotionProfile {
-            val start = MotionState(if (movingForward) 0 else DISTANCE, 0, 0, 0)
-            val goal = MotionState(if (movingForward) DISTANCE else 0, 0, 0, 0)
+            val start = MotionState(if (movingForward) 0.0 else DISTANCE, 0.0, 0.0, 0.0)
+            val goal = MotionState(if (movingForward) DISTANCE else 0.0, 0.0, 0.0, 0.0)
             return MotionProfileGenerator.generateSimpleMotionProfile(start, goal,
                     DriveConstants.BASE_CONSTRAINTS.maxVel,
                     DriveConstants.BASE_CONSTRAINTS.maxAccel,

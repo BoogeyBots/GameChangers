@@ -17,13 +17,13 @@ class SplineTest : LinearOpMode() {
         waitForStart()
         if (isStopRequested) return
         val traj = drive.trajectoryBuilder(Pose2d())
-                .splineTo(Vector2d(30, 30), 0.0)
+                .splineTo(Vector2d(30.0, 30.0), 0.0)
                 .build()
         drive.followTrajectory(traj)
         sleep(2000)
         drive.followTrajectory(
                 drive.trajectoryBuilder(traj.end(), true)
-                        .splineTo(Vector2d(0, 0), Math.toRadians(180.0))
+                        .splineTo(Vector2d(0.0, 0.0), Math.toRadians(180.0))
                         .build()
         )
     }
