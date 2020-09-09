@@ -1,7 +1,8 @@
-package org.firstinspires.ftc.teamcode.drive
+package org.firstinspires.ftc.teamcode.drive;
 
-import com.acmerobotics.roadrunner.control.PIDCoefficients
-import com.acmerobotics.roadrunner.trajectory.constraints.DriveConstraints
+import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.roadrunner.control.PIDCoefficients;
+import com.acmerobotics.roadrunner.trajectory.constraints.DriveConstraints;
 
 /*
  * Constants shared between multiple drive types.
@@ -14,19 +15,21 @@ import com.acmerobotics.roadrunner.trajectory.constraints.DriveConstraints
  * These are not the only parameters; some are located in the localizer classes, drive base classes,
  * and op modes themselves.
  */
-object DriveConstants {
+@Config
+public class DriveConstants {
+
     /*
      * These are motor constants that should be listed online for your motors.
      */
-    const val TICKS_PER_REV = 1.0
-    const val MAX_RPM = 1.0
+    public static final double TICKS_PER_REV = 383.6;
+    public static final double MAX_RPM = 435;
 
     /*
      * Set the first flag appropriately. If using the built-in motor velocity PID, update
      * MOTOR_VELO_PID with the tuned coefficients from DriveVelocityPIDTuner.
      */
-    const val RUN_USING_ENCODER = true
-    val MOTOR_VELO_PID: PIDCoefficients? = null
+    public static final boolean RUN_USING_ENCODER = true;
+    public static final PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(30,0,12); // eventual kD 8-12, kP 30-40
 
     /*
      * These are physical constants that can be determined from your robot (including the track
@@ -36,9 +39,9 @@ object DriveConstants {
      * angular distances although most angular parameters are wrapped in Math.toRadians() for
      * convenience. Make sure to exclude any gear ratio included in MOTOR_CONFIG from GEAR_RATIO.
      */
-    var WHEEL_RADIUS = 2.0 // in
-    var GEAR_RATIO = 1.0 // output (wheel) speed / input (motor) speed
-    var TRACK_WIDTH = 1.0 // in
+    public static double WHEEL_RADIUS = 2; // in
+    public static double GEAR_RATIO = 0.5; // output (wheel) speed / input (motor) speed
+    public static double TRACK_WIDTH = 15.25 ; // sau 15.2
 
     /*
      * These are the feedforward parameters used to model the drive motor behavior. If you are using
@@ -46,9 +49,9 @@ object DriveConstants {
      * motor encoders or have elected not to use them for velocity control, these values should be
      * empirically tuned.
      */
-    var kV = 1.0 / rpmToVelocity(MAX_RPM)
-    var kA = 0.0
-    var kStatic = 0.0
+    public static double kV = 1.0 / rpmToVelocity(MAX_RPM);
+    public static double kA = 0;
+    public static double kStatic = 0;
 
     /*
      * These values are used to generate the trajectories for you robot. To ensure proper operation,
@@ -58,21 +61,22 @@ object DriveConstants {
      * acceleration values are required, and the jerk values are optional (setting a jerk of 0.0
      * forces acceleration-limited profiling). All distance units are inches.
      */
-    var BASE_CONSTRAINTS = DriveConstraints(
-            30.0, 30.0, 0.0,
+    public static DriveConstraints BASE_CONSTRAINTS = new DriveConstraints(
+            34.0, 30.0, 0.0,
             Math.toRadians(180.0), Math.toRadians(180.0), 0.0
-    )
+    );
 
-    fun encoderTicksToInches(ticks: Double): Double {
-        return WHEEL_RADIUS * 2 * Math.PI * GEAR_RATIO * ticks / TICKS_PER_REV
+
+    public static double encoderTicksToInches(double ticks) {
+        return WHEEL_RADIUS * 2 * Math.PI * GEAR_RATIO * ticks / TICKS_PER_REV;
     }
 
-    fun rpmToVelocity(rpm: Double): Double {
-        return rpm * GEAR_RATIO * 2 * Math.PI * WHEEL_RADIUS / 60.0
+    public static double rpmToVelocity(double rpm) {
+        return rpm * GEAR_RATIO * 2 * Math.PI * WHEEL_RADIUS / 60.0;
     }
 
-    // see https://docs.google.com/document/d/1tyWrXDfMidwYyP_5H4mZyVgaEswhOC35gvdmP-V-5hA/edit#heading=h.61g9ixenznbx
-    val motorVelocityF: Double
-        get() =// see https://docs.google.com/document/d/1tyWrXDfMidwYyP_5H4mZyVgaEswhOC35gvdmP-V-5hA/edit#heading=h.61g9ixenznbx
-            32767 * 60.0 / (MAX_RPM * TICKS_PER_REV)
+    public static double getMotorVelocityF() {
+        // see https://docs.google.com/document/d/1tyWrXDfMidwYyP_5H4mZyVgaEswhOC35gvdmP-V-5hA/edit#heading=h.61g9ixenznbx
+        return 32767 * 60.0 / (MAX_RPM * TICKS_PER_REV);
+    }
 }
