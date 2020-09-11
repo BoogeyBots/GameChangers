@@ -14,7 +14,7 @@ open class BaseTeleOp : LinearOpMode() {
 
     override fun runOpMode() {
         val robot = Mecanum(null)
-        telemetry = MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry())
+        telemetry = MultipleTelemetry(telemetry, FtcDashboard.getInstance().telemetry)
 
         waitForStart()
 
