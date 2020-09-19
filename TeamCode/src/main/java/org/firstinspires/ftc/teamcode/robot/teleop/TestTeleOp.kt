@@ -8,7 +8,7 @@ import java.util.*
 class TestTeleOp : BaseTeleOp() {
 
     override fun runOpMode() {
-        val robot = Mecanum(null)
+        val robot = Mecanum(hardwareMap)
 
         while (!isStopRequested){
             driveRobot(robot)
@@ -16,7 +16,6 @@ class TestTeleOp : BaseTeleOp() {
 
     }
 
-    companion object{
-    }
+    companion object
 
 }

@@ -35,7 +35,7 @@ import org.openftc.easyopencv.OpenCvCamera.AsyncCameraOpenListener
  * original Android camera API
  */
 
-@TeleOp
+@TeleOp(name = "TEST CAMERA", group = "drive")
 class InternalCamera1Example : LinearOpMode() {
     var phoneCam: OpenCvCamera? = null
     override fun runOpMode() {

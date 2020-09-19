@@ -1,11 +1,12 @@
-package org.firstinspires.ftc.teamcode.vision
+package org.firstinspires.ftc.teamcode.drive.opmode
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
+import com.acmerobotics.dashboard.config.Config
 import org.firstinspires.ftc.robotcore.internal.camera.WebcamExample
 import org.opencv.core.*
 import org.opencv.imgproc.Imgproc
 import org.openftc.easyopencv.*
-
 
 
 /*
@@ -36,7 +37,8 @@ import org.openftc.easyopencv.*
  * 100% accurate) method of detecting the skystone when lined up with
  * the sample regions over the first 3 stones.
  */
-@TeleOp
+@Config
+@TeleOp(group = "drive")
 class SkystoneTest : LinearOpMode() {
     private var phoneCam: OpenCvInternalCamera? = null
     private var pipeline: SkystoneDeterminationPipeline? = null
@@ -319,15 +321,15 @@ class SkystoneTest : LinearOpMode() {
         }
 
         companion object {
-        /*
-         * Some color constants
-         */
+            /*
+             * Some color constants
+             */
             val BLUE = Scalar(0.0, 0.0, 255.0)
             val GREEN = Scalar(0.0, 255.0, 0.0)
 
-        /*
-         * The core values which define the location and size of the sample regions
-         */
+            /*
+             * The core values which define the location and size of the sample regions
+             */
             val REGION1_TOPLEFT_ANCHOR_POINT = Point(109.0, 98.0)
             val REGION2_TOPLEFT_ANCHOR_POINT = Point(181.0, 98.0)
             val REGION3_TOPLEFT_ANCHOR_POINT = Point(253.0, 98.0)
