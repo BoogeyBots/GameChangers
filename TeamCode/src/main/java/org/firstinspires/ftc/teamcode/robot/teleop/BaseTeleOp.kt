@@ -14,12 +14,12 @@ import kotlin.math.abs
 @TeleOp(group = "drive")
 open class BaseTeleOp : LinearOpMode() {
 
-    enum class ROBOT_MODE {
+    enum class ROBOTMODE {
         CONTROLLED,
         AUTO
     }
 
-    private var currentROBOT_MODE = ROBOT_MODE.CONTROLLED
+    private var robotMode = ROBOTMODE.CONTROLLED
 
     override fun runOpMode() {
         val robot = Mecanum(hardwareMap)
@@ -35,18 +35,17 @@ open class BaseTeleOp : LinearOpMode() {
             driveRobot(robot)
         }
 
-
     }
     fun driveRobot(robot: Mecanum){
         if(gamepad1.a){
-            currentROBOT_MODE = ROBOT_MODE.AUTO
+            robotMode = ROBOTMODE.AUTO
         }
 
         else if(gamepad1.b){
-            currentROBOT_MODE = ROBOT_MODE.CONTROLLED
+            robotMode = ROBOTMODE.CONTROLLED
         }
 
-        if(currentROBOT_MODE == ROBOT_MODE.CONTROLLED){
+        if(robotMode == ROBOTMODE.CONTROLLED){
             robot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER)
             val baseVel = Pose2d(
                     (-gamepad1.left_stick_y).toDouble(),
@@ -83,9 +82,9 @@ open class BaseTeleOp : LinearOpMode() {
             robot.setMode(DcMotor.RunMode.RUN_USING_ENCODER)
             robot.followTrajectory(
                     robot.trajectoryBuilder(robot.poseEstimate)
-                    .splineTo(Vector2d(40.0,0.0), 0.0)
+                    .strafeTo(Vector2d(0.0,0.0))
                     .build())
-            currentROBOT_MODE = ROBOT_MODE.CONTROLLED
+            robotMode = ROBOTMODE.CONTROLLED
         }
     }
 }
