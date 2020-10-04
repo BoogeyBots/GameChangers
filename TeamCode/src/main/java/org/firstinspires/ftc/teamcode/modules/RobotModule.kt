@@ -16,5 +16,5 @@ interface RobotModule {
     
     fun init() { }
 
-    fun <T: HardwareDevice> get(name: String): T = components[name] as T
+    fun <T: HardwareDevice>     get(name: String): T = components[name] as T
 }

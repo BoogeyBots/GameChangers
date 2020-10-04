@@ -16,11 +16,11 @@ public class TestDcMotor : BBOpMode(){
     lateinit var motor: DcMotorEx
 
     override fun init() {
-        motor = hardwareMap.get(DcMotorEx::class.java, "leftRear")
+        motor = hardwareMap.get(DcMotorEx::class.java, "wobblegoal")
         motor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
     }
 
     override fun loop() {
-        motor.power = -gamepad1.left_stick_y.toDouble()
+        motor.power = -gamepad1.left_stick_y.toDouble() 
     }
 }

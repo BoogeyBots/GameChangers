@@ -6,6 +6,7 @@ import com.acmerobotics.roadrunner.geometry.Vector2d
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import org.firstinspires.ftc.teamcode.Mecanum
+import org.firstinspires.ftc.teamcode.Robot
 
 @Autonomous(name = "TEST: Move")
 class TestMove : LinearOpMode() {
