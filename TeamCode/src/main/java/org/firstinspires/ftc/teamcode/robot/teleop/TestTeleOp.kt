@@ -4,17 +4,15 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.teamcode.Mecanum
 import org.firstinspires.ftc.teamcode.Robot
 import org.firstinspires.ftc.teamcode.modules.WobbleGoalModule
-import java.util.*
 
 @TeleOp
-class TestTeleOp : BaseTeleOp() {
+class TestTeleOp : AutoTeleOp() {
 
     override fun runOpMode() {
         val robot = Mecanum(hardwareMap)
-        val modules : Robot = Robot(setOf(WobbleGoalModule(this)))
+        val modules = Robot(setOf(WobbleGoalModule(this)))
 
-        modules.modules.forEach(){it.init()}
-
+        modules.modules.forEach {it.init()}
 
         while (!isStopRequested){
             driveRobot(robot)

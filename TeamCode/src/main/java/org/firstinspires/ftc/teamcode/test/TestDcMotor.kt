@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.modules.TestModule
 
 @Config
 @TeleOp(group="drive")
-public class TestDcMotor : BBOpMode(){
+class TestDcMotor : BBOpMode(){
     override val robot: Robot = Robot(setOf(TestModule(this)))
     lateinit var motor: DcMotorEx
 

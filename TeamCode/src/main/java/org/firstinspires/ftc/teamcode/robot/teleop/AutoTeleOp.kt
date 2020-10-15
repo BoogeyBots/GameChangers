@@ -8,11 +8,12 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.DcMotor
 import org.firstinspires.ftc.teamcode.Mecanum
+import org.firstinspires.ftc.teamcode.util.PoseStorage
 import kotlin.math.abs
 
 
 @TeleOp(group = "drive")
-open class BaseTeleOp : LinearOpMode() {
+open class AutoTeleOp : LinearOpMode() {
 
     enum class ROBOTMODE {
         CONTROLLED,
@@ -35,6 +36,8 @@ open class BaseTeleOp : LinearOpMode() {
             driveRobot(robot)
         }
 
+        // Store the last position of the robot during teleop
+        PoseStorage.currentPose = robot.poseEstimate
     }
     fun driveRobot(robot: Mecanum){
         if(gamepad1.a){
@@ -54,7 +57,8 @@ open class BaseTeleOp : LinearOpMode() {
             )
 
             val vel: Pose2d
-            vel = (if (abs(baseVel.x) + abs(baseVel.y) + abs(baseVel.heading) > 1)
+            vel = (
+                    if (abs(baseVel.x) + abs(baseVel.y) + abs(baseVel.heading) > 1)
             {
                 // re-normalize the powers according to the weights
                 val denom = abs(baseVel.x) +  abs(baseVel.y) +  abs(baseVel.heading)
@@ -86,5 +90,6 @@ open class BaseTeleOp : LinearOpMode() {
                     .build())
             robotMode = ROBOTMODE.CONTROLLED
         }
+
     }
 }
