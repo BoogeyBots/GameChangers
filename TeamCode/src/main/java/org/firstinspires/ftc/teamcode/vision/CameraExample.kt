@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.vision
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.opencv.core.Mat
@@ -34,8 +35,8 @@ import org.openftc.easyopencv.OpenCvCamera.AsyncCameraOpenListener
  * This version of the internal camera example uses EasyOpenCV's interface to the
  * original Android camera API
  */
-
-@TeleOp
+@Disabled
+@TeleOp(name = "TEST CAMERA", group = "drive")
 class InternalCamera1Example : LinearOpMode() {
     var phoneCam: OpenCvCamera? = null
     override fun runOpMode() {

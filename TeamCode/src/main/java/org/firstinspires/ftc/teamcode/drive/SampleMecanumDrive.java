@@ -31,12 +31,14 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.teamcode.util.AxesSigns;
+import org.firstinspires.ftc.teamcode.util.BNO055IMUUtil;
 import org.firstinspires.ftc.teamcode.util.DashboardUtil;
 import org.firstinspires.ftc.teamcode.util.LynxModuleUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import static org.firstinspires.ftc.teamcode.drive.DriveConstants.BASE_CONSTRAINTS;
@@ -55,9 +57,13 @@ import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kV;
 @Config
 public class SampleMecanumDrive extends MecanumDrive {
     public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(0, 0, 0);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(0, 0, 0);
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(5.2, 0, 0); //era 6 inainte dar acm merge cu 4 lmao
 
-    public static double LATERAL_MULTIPLIER = 1;
+    public static double LATERAL_MULTIPLIER = 1.15;
+
+    public static double VX_WEIGHT = 1;
+    public static double VY_WEIGHT = 1;
+    public static double OMEGA_WEIGHT = 1;
 
     public enum Mode {
         IDLE,
@@ -118,7 +124,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 
         // TODO: if your hub is mounted vertically, remap the IMU axes so that the z-axis points
         // upward (normal to the floor) using a command like the following:
-        // BNO055IMUUtil.remapAxes(imu, AxesOrder.XYZ, AxesSigns.NPN);
+        BNO055IMUUtil.remapAxes(imu, AxesOrder.XYZ, AxesSigns.NPN);
 
         leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
         leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
@@ -323,6 +329,26 @@ public class SampleMecanumDrive extends MecanumDrive {
                     coefficients.kP, coefficients.kI, coefficients.kD, getMotorVelocityF()
             ));
         }
+    }
+
+    public void setWeightedDrivePower(Pose2d drivePower) {
+        Pose2d vel = drivePower;
+
+        if (Math.abs(drivePower.getX()) + Math.abs(drivePower.getY())
+                + Math.abs(drivePower.getHeading()) > 1) {
+            // re-normalize the powers according to the weights
+            double denom = VX_WEIGHT * Math.abs(drivePower.getX())
+                    + VY_WEIGHT * Math.abs(drivePower.getY())
+                    + OMEGA_WEIGHT * Math.abs(drivePower.getHeading());
+
+            vel = new Pose2d(
+                    VX_WEIGHT * drivePower.getX(),
+                    VY_WEIGHT * drivePower.getY(),
+                    OMEGA_WEIGHT * drivePower.getHeading()
+            ).div(denom);
+        }
+
+        setDrivePower(vel);
     }
 
     @NonNull
