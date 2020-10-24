@@ -8,5 +8,5 @@ import com.acmerobotics.roadrunner.geometry.Pose2d
  * A static field allows data to persist between opmodes.
  */
 object PoseStorage {
-    var currentPose = Pose2d()
+    var currentPose: Pose2d = Pose2d(0.0,0.0,0.0)
 }
