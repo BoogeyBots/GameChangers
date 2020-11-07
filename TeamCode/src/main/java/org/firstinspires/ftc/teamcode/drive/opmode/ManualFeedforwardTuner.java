@@ -33,13 +33,13 @@ import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kV;
  * the velocity errors over time and adjust the feedforward coefficients. Once you've found a
  * satisfactory set of gains, add them to the appropriate fields in the DriveConstants.java file.
  */
-@Disabled
+
 @Config
 @Autonomous(group = "drive")
 public class ManualFeedforwardTuner extends LinearOpMode {
     public static double DISTANCE = 72; // in
 
-    private FtcDashboard dashboard = FtcDashboard.getInstance();
+    private final FtcDashboard dashboard = FtcDashboard.getInstance();
 
     private SampleMecanumDrive drive;
 
