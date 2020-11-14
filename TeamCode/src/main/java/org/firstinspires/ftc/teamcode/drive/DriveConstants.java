@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.drive;
+    package org.firstinspires.ftc.teamcode.drive;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.control.PIDCoefficients;
@@ -54,9 +54,9 @@ public class DriveConstants {
      * motor encoders or have elected not to use them for velocity control, these values should be
      * empirically tuned.
      */
-    public static double kV = 1.0 / rpmToVelocity(MAX_RPM);
-    public static double kA = 0;
-    public static double kStatic = 0;
+    public static double kV = 1.0 / 46;
+    public static double kA = 0.002;
+    public static double kStatic = 0.0022;
 
     /*
      * These values are used to generate the trajectories for you robot. To ensure proper operation,
@@ -67,7 +67,7 @@ public class DriveConstants {
      * forces acceleration-limited profiling). All distance units are inches.
      */
     public static DriveConstraints BASE_CONSTRAINTS = new DriveConstraints(
-            34.0, 30.0, 0.0,
+            46.0, 46.0, 0.0,
             Math.toRadians(180.0), Math.toRadians(180.0), 0.0
     );
 
