@@ -18,7 +18,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.openftc.easyopencv.examples
+package org.firstinspires.ftc.teamcode.vision
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
@@ -56,7 +56,7 @@ class InternalCamera1AdvancedFeaturesExample : LinearOpMode() {
         phoneCam?.setPipeline(UselessColorBoxDrawingPipeline(Scalar(255.0, 0.0, 0.0)))
 
         /*
-         * We use the most verbose version of #startStreaming(), which allows us to specify whether we want to use double
+             * We use the most verbose version of #startStreaming(), which allows us to specify whether we want to use double
          * (default) or single buffering. See the JavaDoc for this method for more details
          */phoneCam?.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT, OpenCvInternalCamera.BufferMethod.DOUBLE)
 
