@@ -5,46 +5,36 @@ import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.HardwareDevice
 import com.qualcomm.robotcore.util.ElapsedTime
+import com.qualcomm.robotcore.util.Range
 
-class WobbleGoalModule(override val opMode: OpMode) : RobotModule
-{
+class WobbleGoalLift(override val opMode: OpMode) : RobotModule {
     override var components: HashMap<String, HardwareDevice> = hashMapOf()
     val wobblegoal get() = get<DcMotorEx>("wobblegoal")
     var isUp: Boolean = true
     val MOTOR_POWER = 0.25
     val time_elapsed = ElapsedTime()
+    val minPos = 0
+    val maxPos = 0
+    val changePos = 0
 
     override fun init() {
         components["wobblegoal"] = hardwareMap!!.get(DcMotorEx::class.java, "wobblegoal")
         wobblegoal.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
-        /*
-        wobblegoal.targetPosition = 210
-        wobblegoal.power = MOTOR_POWER
+        wobblegoal.targetPosition = 0
+        wobblegoal.power = 0.4
         wobblegoal.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
         wobblegoal.mode = DcMotor.RunMode.RUN_TO_POSITION
-        wobblegoal.targetPositionTolerance = 5
-        wobblegoal.setVelocityPIDFCoefficients(8.0, 0.85, 6.0, 0.0)
-         */
-        wobblegoal.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
+        wobblegoal.setVelocityPIDFCoefficients(5.0, 4.0, 2.0, 0.0)
     }
 
-    fun move_goal(i: Float){
-        wobblegoal.power = i.toDouble()
+    fun goUp(){
+        if (wobblegoal.targetPosition in (minPos) until (maxPos + 1))
+            wobblegoal.targetPosition = Range.clip(wobblegoal.targetPosition + changePos, minPos, maxPos)
+        wobblegoal.power = 0.4
     }
-
-    /*
-    fun move() {
-        if(time_elapsed.seconds() > 1.0) {
-            wobblegoal.power = MOTOR_POWER
-            if (isUp) {
-                wobblegoal.targetPosition = 451
-                isUp = false
-            } else {
-                wobblegoal.targetPosition = 210
-                isUp = true
-            }
-            time_elapsed.reset()
-        }
-
-     */
+    fun goDown(){
+        if (wobblegoal.targetPosition in (minPos) until (maxPos + 1))
+            wobblegoal.targetPosition = Range.clip(wobblegoal.targetPosition - changePos, minPos, maxPos)
+        wobblegoal.power = 0.4
+    }
 }

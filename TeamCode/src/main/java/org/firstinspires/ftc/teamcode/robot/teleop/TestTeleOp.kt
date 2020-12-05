@@ -3,15 +3,18 @@ package org.firstinspires.ftc.teamcode.robot.teleop
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.teamcode.Mecanum
 import org.firstinspires.ftc.teamcode.Robot
+import org.firstinspires.ftc.teamcode.bbopmode.get
 import org.firstinspires.ftc.teamcode.modules.ServoWobble
 import org.firstinspires.ftc.teamcode.modules.WobbleGoalModule
 
 @TeleOp
 class TestTeleOp : AutoTeleOp() {
 
+    override val modules = Robot(setOf(WobbleGoalModule(this), ServoWobble(this)))
+
+
     override fun runOpMode() {
         val robot = Mecanum(hardwareMap)
-        val modules = Robot(setOf(WobbleGoalModule(this), ServoWobble(this)))
 
         modules.modules.forEach {it.init()}
 
@@ -29,18 +32,22 @@ class TestTeleOp : AutoTeleOp() {
 
             }
             */
-             if(gamepad1.dpad_down){
-                 modules.get<WobbleGoalModule>().move()
-             }
+            if(gamepad1.right_trigger > 0.1){
+                get<WobbleGoalModule>().move_goal(gamepad1.right_trigger)
+            }
+            else if(gamepad1.left_trigger > 0.14){
+                get<WobbleGoalModule>().move_goal(-gamepad1.left_trigger)
+            }
+            else{
+                get<WobbleGoalModule>().move_goal(0.0.toFloat())
+            }
             if(gamepad1.right_bumper){
-                modules.get<ServoWobble>().grab()
+                get<ServoWobble>().grab()
             }
             else if(gamepad1.left_bumper){
-                modules.get<ServoWobble>().ungrab()
+                get<ServoWobble>().ungrab()
             }
 
-            telemetry.addData("position: ", modules.get<WobbleGoalModule>().wobblegoal.currentPosition)
-            telemetry.addData("PID ", modules.get<WobbleGoalModule>().wobblegoal.getPIDFCoefficients(modules.get<WobbleGoalModule>().wobblegoal.mode))
 
         }
 

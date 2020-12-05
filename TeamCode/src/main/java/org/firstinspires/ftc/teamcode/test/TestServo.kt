@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.modules.get
 
 @TeleOp(name = "Test Servo", group = "TEST")
 class TestServo : BBLinearOpMode() {
-    override val robot = Robot(setOf(TestModule(this)))
+    override val modules = Robot(setOf(TestModule(this)))
     var resolution = 0.0005
     var resChangeSpeed = 0.000000001
 
@@ -21,9 +21,9 @@ class TestServo : BBLinearOpMode() {
 
 
     override fun runOpMode() {
-        val servoMod = robot.modules.first()
+        val servoMod = modules.modules.first()
         servoMod.components["servo"] = hardwareMap.get(Servo::class.java, "servowobble")
-        val servo = robot.get<TestModule>().get<Servo>("servo")
+        val servo = modules.get<TestModule>().get<Servo>("servo")
         servo.position = 0.5
 
         waitForStart()

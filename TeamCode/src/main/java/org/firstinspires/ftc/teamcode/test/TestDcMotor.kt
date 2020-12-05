@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.modules.TestModule
 @Config
 @TeleOp(group="drive")
 class TestDcMotor : BBOpMode(){
-    override val robot: Robot = Robot(setOf(TestModule(this)))
+    override val modules: Robot = Robot(setOf(TestModule(this)))
     lateinit var motor: DcMotorEx
 
     override fun init() {
@@ -20,6 +20,8 @@ class TestDcMotor : BBOpMode(){
     }
 
     override fun loop() {
-        motor.power = -gamepad1.left_stick_y.toDouble() 
+        motor.power = -gamepad1.left_stick_y.toDouble()
+        telemetry.addData("Motor position:", motor.currentPosition)
+        telemetry.update()
     }
 }
