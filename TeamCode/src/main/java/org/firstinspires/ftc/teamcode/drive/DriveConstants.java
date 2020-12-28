@@ -13,15 +13,15 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
  * navigate to https://192.168.49.1:8080/dash). Make sure to save the values here after you
  * adjust them in the dashboard; **config variable changes don't persist between app restarts**.
  *
- * These are not the only parameters; some are located in the localizer classes, drive base classes,
- * and op modes themselves.
- */
-@Config
-public class DriveConstants {
-
-    /*
-     * These are motor constants that should be listed online for your motors.
+     * These are not the only parameters; some are located in the localizer classes, drive base classes,
+     * and op modes themselves.
      */
+    @Config
+    public class DriveConstants {
+
+        /*
+         * These are motor constants that should be listed online for your motors.
+         */
     public static final double TICKS_PER_REV = 383.6;
     public static final double MAX_RPM = 435;
 
@@ -35,7 +35,7 @@ public class DriveConstants {
      * Set the value of MOTOR_VELO_PID to `new PIDCoefficients(kP, kI, kD);`
      */
     public static final boolean RUN_USING_ENCODER = true;
-    public static final PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(30, 0, 10, getMotorVelocityF(MAX_RPM / 60 * TICKS_PER_REV)); // d era 7; eventual kD 8-12, kP 30-40
+    public static final PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(30, 0, 10, getMotorVelocityF(MAX_RPM / 60 * TICKS_PER_REV)); // d era 7; eventually kD 8-12, kP 30-40
 
     /*
      * These are physical constants that can be determined from your robot (including the track
