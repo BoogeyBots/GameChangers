@@ -1,11 +1,10 @@
-    package org.firstinspires.ftc.teamcode.drive;
+package org.firstinspires.ftc.teamcode.drive;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.roadrunner.control.PIDCoefficients;
 import com.acmerobotics.roadrunner.trajectory.constraints.DriveConstraints;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
-    /*
+/*
  * Constants shared between multiple drive types.
  *
  * TODO: Tune or adjust the following constants to fit your robot. Note that the non-final
@@ -13,29 +12,28 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
  * navigate to https://192.168.49.1:8080/dash). Make sure to save the values here after you
  * adjust them in the dashboard; **config variable changes don't persist between app restarts**.
  *
-     * These are not the only parameters; some are located in the localizer classes, drive base classes,
-     * and op modes themselves.
-     */
-    @Config
-    public class DriveConstants {
+ * These are not the only parameters; some are located in the localizer classes, drive base classes,
+ * and op modes themselves.
+ */
+@Config
+public class DriveConstants {
 
-        /*
-         * These are motor constants that should be listed online for your motors.
-         */
-    public static final double TICKS_PER_REV = 383.6;
-    public static final double MAX_RPM = 435;
+    /*
+     * These are motor constants that should be listed online for your motors.
+     */
+    public static final double TICKS_PER_REV = 1;
+    public static final double MAX_RPM = 1;
 
     /*
      * Set RUN_USING_ENCODER to true to enable built-in hub velocity control using drive encoders.
      * Set this flag to false if drive encoders are not present and an alternative localization
      * method is in use (e.g., tracking wheels).
      *
-     * If using the built-in motor velocity PID, update
-     * MOTOR_VELO_PID with the tuned coefficients from DriveVelocityPIDTuner.
-     * Set the value of MOTOR_VELO_PID to `new PIDCoefficients(kP, kI, kD);`
+     * If using the built-in motor velocity PID, update MOTOR_VELO_PID with the tuned coefficients
+     * from DriveVelocityPIDTuner.
      */
-    public static final boolean RUN_USING_ENCODER = false;
-    public static final PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(30, 0, 10, getMotorVelocityF(MAX_RPM / 60 * TICKS_PER_REV)); // d era 7; eventually kD 8-12, kP 30-40
+    public static final boolean RUN_USING_ENCODER = true;
+    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(0, 0, 0, getMotorVelocityF(MAX_RPM / 60 * TICKS_PER_REV));
 
     /*
      * These are physical constants that can be determined from your robot (including the track
@@ -46,8 +44,8 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
      * convenience. Make sure to exclude any gear ratio included in MOTOR_CONFIG from GEAR_RATIO.
      */
     public static double WHEEL_RADIUS = 2; // in
-    public static double GEAR_RATIO = 0.5; // output (wheel) speed / input (motor) speed
-    public static double TRACK_WIDTH = 15.25 ; // sau 15.2
+    public static double GEAR_RATIO = 1; // output (wheel) speed / input (motor) speed
+    public static double TRACK_WIDTH = 1; // in
 
     /*
      * These are the feedforward parameters used to model the drive motor behavior. If you are using
@@ -55,9 +53,9 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
      * motor encoders or have elected not to use them for velocity control, these values should be
      * empirically tuned.
      */
-    public static double kV = 1.0 / 46;
-    public static double kA = 0.002;
-    public static double kStatic = 0.0022;
+    public static double kV = 1.0 / rpmToVelocity(MAX_RPM);
+    public static double kA = 0;
+    public static double kStatic = 0;
 
     /*
      * These values are used to generate the trajectories for you robot. To ensure proper operation,
@@ -67,6 +65,11 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
      * acceleration values are required, and the jerk values are optional (setting a jerk of 0.0
      * forces acceleration-limited profiling). All distance units are inches.
      */
+    public static double MAX_VEL = 30;
+    public static double MAX_ACCEL = 30;
+    public static double MAX_ANG_VEL = Math.toRadians(180);
+    public static double MAX_ANG_ACCEL = Math.toRadians(180);
+
     public static DriveConstraints BASE_CONSTRAINTS = new DriveConstraints(
             46.0, 46.0, 0.0,
             Math.toRadians(180.0), Math.toRadians(180.0), 0.0
