@@ -19,7 +19,7 @@ class TestDcMotor : BBOpMode(){
     var timex = ElapsedTime()
 
     override fun init() {
-        motor = hardwareMap.get(DcMotorEx::class.java, "wobblegoal")
+        motor = hardwareMap.get(DcMotorEx::class.java, "leftRear")
         motor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
     }
 
@@ -38,8 +38,8 @@ class TestDcMotor : BBOpMode(){
         else {
             motor.power = -gamepad1.left_stick_y.toDouble()
         }
-        telemetry.addData("Motor theoretical power: ", motorPower)
-        telemetry.addData("Motor power: ", motor.power)
+        telemetry.addData("Motor theoretical twoMotorsPower: ", motorPower)
+        telemetry.addData("Motor twoMotorsPower: ", motor.power)
         telemetry.update()
     }
 }

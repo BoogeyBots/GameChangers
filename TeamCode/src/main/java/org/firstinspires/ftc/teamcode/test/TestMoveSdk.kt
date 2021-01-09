@@ -44,7 +44,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot
  * otherwise you would use: PushbotAutoDriveByTime;
  *
  * This code ALSO requires that the drive Motors have been configured such that a positive
- * power command moves them forwards, and causes the encoders to count UP.
+ * twoMotorsPower command moves them forwards, and causes the encoders to count UP.
  *
  * The desired path in this example is:
  * - Drive forward for 48 inches

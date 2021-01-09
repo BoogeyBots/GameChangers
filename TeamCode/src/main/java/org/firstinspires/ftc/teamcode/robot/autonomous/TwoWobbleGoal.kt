@@ -23,7 +23,7 @@ class TwoWobbleGoal : LinearOpMode(){
 
         val trajectory2 = robot.trajectoryBuilder(trajectory1.end(), true)
                 .splineTo(Vector2d(-60.0, 48.0 ), Math.toRadians(180.0))
-                .build()
+                    .build()
 
         val trajectory3 = robot.trajectoryBuilder(trajectory2.end())
                 .splineTo(Vector2d(-30.0, 49.0 ), Math.toRadians(0.0))

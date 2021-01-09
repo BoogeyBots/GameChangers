@@ -19,7 +19,7 @@ class WobbleGoalModule(override val opMode: OpMode) : RobotModule
         wobblegoal.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
         /*
         wobblegoal.targetPosition = 210
-        wobblegoal.power = MOTOR_POWER
+        wobblegoal.twoMotorsPower = MOTOR_POWER
         wobblegoal.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
         wobblegoal.mode = DcMotor.RunMode.RUN_TO_POSITION
         wobblegoal.targetPositionTolerance = 5
@@ -35,7 +35,7 @@ class WobbleGoalModule(override val opMode: OpMode) : RobotModule
     /*
     fun move() {
         if(time_elapsed.seconds() > 1.0) {
-            wobblegoal.power = MOTOR_POWER
+            wobblegoal.twoMotorsPower = MOTOR_POWER
             if (isUp) {
                 wobblegoal.targetPosition = 451
                 isUp = false

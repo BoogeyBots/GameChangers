@@ -118,7 +118,7 @@ public class TeleOpAlignWithPoint extends LinearOpMode {
                     // Obtain the target angle for feedback and derivative for feedforward
                     double theta = difference.angle();
 
-                    // Not technically omega because its power. This is the derivative of atan2
+                    // Not technically omega because its twoMotorsPower. This is the derivative of atan2
                     double thetaFF = -fieldFrameInput.rotated(-Math.PI / 2).dot(difference) / (difference.norm() * difference.norm());
 
                     // Set the target heading for the heading controller to our desired angle

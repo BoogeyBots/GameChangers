@@ -119,8 +119,8 @@ class InternalCamera1Example : LinearOpMode() {
                  * NB: calling closeCameraDevice() will internally call stopStreaming() if applicable,
                  * but it doesn't hurt to call it anyway, if for no other reason than clarity.
                  *
-                 * NB2: if you are stopping the camera stream to simply save some processing power
-                 * (or battery power) for a short while when you do not need your vision pipeline,
+                 * NB2: if you are stopping the camera stream to simply save some processing twoMotorsPower
+                 * (or battery twoMotorsPower) for a short while when you do not need your vision pipeline,
                  * it is recommended to NOT call closeCameraDevice() as you will then need to re-open
                  * it the next time you wish to activate your vision pipeline, which can take a bit of
                  * time. Of course, this comment is irrelevant in light of the use case described in
@@ -198,7 +198,7 @@ class InternalCamera1Example : LinearOpMode() {
         override fun onViewportTapped() {
             /*
              * The viewport (if one was specified in the constructor) can also be dynamically "paused"
-             * and "resumed". The primary use case of this is to reduce CPU, memory, and power load
+             * and "resumed". The primary use case of this is to reduce CPU, memory, and twoMotorsPower load
              * when you need your vision pipeline running, but do not require a live preview on the
              * robot controller screen. For instance, this could be useful if you wish to see the live
              * camera preview as you are initializing your robot, but you no longer require the live

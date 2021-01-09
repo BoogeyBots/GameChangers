@@ -14,8 +14,8 @@ class Test2DcMotors : BBOpMode() {
     var power : Double = 0.0
 
     override fun init() {
-        motor = hardwareMap.get(DcMotor::class.java, "leftRear")
-        motor2 = hardwareMap.get(DcMotor::class.java, "leftFront")
+        motor = hardwareMap.get(DcMotor::class.java, "intake")
+        motor2 = hardwareMap.get(DcMotor::class.java, "intake2")
         motor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
     }
 

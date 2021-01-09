@@ -68,13 +68,13 @@ public class RegressionUtil {
      * Run regression to compute velocity and static feedforward from ramp test data.
      *
      * Here's the general procedure for gathering the requisite data:
-     *   1. Slowly ramp the motor power/voltage and record encoder values along the way.
-     *   2. Run a linear regression on the encoder velocity vs. motor power plot to obtain a slope
+     *   1. Slowly ramp the motor twoMotorsPower/voltage and record encoder values along the way.
+     *   2. Run a linear regression on the encoder velocity vs. motor twoMotorsPower plot to obtain a slope
      *      (kV) and an optional intercept (kStatic).
      *
      * @param timeSamples time samples
      * @param positionSamples position samples
-     * @param powerSamples power samples
+     * @param powerSamples twoMotorsPower samples
      * @param fitStatic fit kStatic
      * @param file log file
      */
@@ -83,7 +83,7 @@ public class RegressionUtil {
                                          @Nullable File file) {
         if (file != null) {
             try (PrintWriter pw = new PrintWriter(file)) {
-                pw.println("time,position,power");
+                pw.println("time,position,twoMotorsPower");
                 for (int i = 0; i < timeSamples.size(); i++) {
                     double time = timeSamples.get(i);
                     double pos = positionSamples.get(i);
@@ -114,7 +114,7 @@ public class RegressionUtil {
      *
      * @param timeSamples time samples
      * @param positionSamples position samples
-     * @param powerSamples power samples
+     * @param powerSamples twoMotorsPower samples
      * @param rampResult ramp result
      * @param file log file
      */
@@ -123,7 +123,7 @@ public class RegressionUtil {
                                            @Nullable File file) {
         if (file != null) {
             try (PrintWriter pw = new PrintWriter(file)) {
-                pw.println("time,position,power");
+                pw.println("time,position,twoMotorsPower");
                 for (int i = 0; i < timeSamples.size(); i++) {
                     double time = timeSamples.get(i);
                     double pos = positionSamples.get(i);

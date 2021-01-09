@@ -112,7 +112,7 @@ public class DriveVelocityPIDTuner extends LinearOpMode {
                         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                     }
 
-                    // calculate and set the motor power
+                    // calculate and set the motor twoMotorsPower
                     double profileTime = clock.seconds() - profileStart;
 
                     if (profileTime > activeProfile.duration()) {

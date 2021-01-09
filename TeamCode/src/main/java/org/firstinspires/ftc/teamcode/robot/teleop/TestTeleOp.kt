@@ -19,7 +19,7 @@ class TestTeleOp : AutoTeleOp() {
         modules.modules.forEach {it.init()}
 
         while (!isStopRequested){
-            driveRobot(robot)
+            driveRobot(robot, false)
             /*
             if(gamepad1.right_trigger > 0) {
                 modules.get<WobbleGoalModule>().move_goal(gamepad1.right_trigger)

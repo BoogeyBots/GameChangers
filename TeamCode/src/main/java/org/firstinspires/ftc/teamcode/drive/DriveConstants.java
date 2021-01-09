@@ -34,7 +34,7 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
      * MOTOR_VELO_PID with the tuned coefficients from DriveVelocityPIDTuner.
      * Set the value of MOTOR_VELO_PID to `new PIDCoefficients(kP, kI, kD);`
      */
-    public static final boolean RUN_USING_ENCODER = true;
+    public static final boolean RUN_USING_ENCODER = false;
     public static final PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(30, 0, 10, getMotorVelocityF(MAX_RPM / 60 * TICKS_PER_REV)); // d era 7; eventually kD 8-12, kP 30-40
 
     /*

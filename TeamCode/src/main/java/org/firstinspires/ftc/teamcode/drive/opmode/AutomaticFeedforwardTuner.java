@@ -25,10 +25,10 @@ import static org.firstinspires.ftc.teamcode.drive.DriveConstants.rpmToVelocity;
 /*
  * Op mode for computing kV, kStatic, and kA from various drive routines. For the curious, here's an
  * outline of the procedure:
- *   1. Slowly ramp the motor power and record encoder values along the way.
- *   2. Run a linear regression on the encoder velocity vs. motor power plot to obtain a slope (kV)
+ *   1. Slowly ramp the motor twoMotorsPower and record encoder values along the way.
+ *   2. Run a linear regression on the encoder velocity vs. motor twoMotorsPower plot to obtain a slope (kV)
  *      and an optional intercept (kStatic).
- *   3. Accelerate the robot (apply constant power) and record the encoder counts.
+ *   3. Accelerate the robot (apply constant twoMotorsPower) and record the encoder counts.
  *   4. Adjust the encoder data based on the velocity tuning data and find kA with another linear
  *      regression.
  */
@@ -209,7 +209,7 @@ public class AutomaticFeedforwardTuner extends LinearOpMode {
                             "DriveAccelRegression-%d.csv", System.currentTimeMillis())));
 
             telemetry.clearAll();
-            telemetry.addLine("Constant power test complete");
+            telemetry.addLine("Constant twoMotorsPower test complete");
             telemetry.addLine(Misc.formatInvariant("kA = %.5f (R^2 = %.2f)",
                     accelResult.kA, accelResult.rSquare));
             telemetry.update();

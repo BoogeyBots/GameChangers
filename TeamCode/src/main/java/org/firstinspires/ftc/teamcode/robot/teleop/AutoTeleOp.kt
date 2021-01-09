@@ -39,21 +39,23 @@ open class AutoTeleOp : BBLinearOpMode() {
         robot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER)
 
         while (!isStopRequested) {
-            driveRobot(robot)
+            driveRobot(robot, false)
         }
 
         // Store the last position of the robot during teleop
         PoseStorage.currentPose = robot.poseEstimate
     }
-    fun driveRobot(robot: Mecanum){
-        if(gamepad1.a){
-            robotMode = ROBOTMODE.AUTO
+    fun driveRobot(robot: Mecanum, noMode: Boolean){
+        if(!noMode) {
+            if (gamepad1.a) {
+                robotMode = ROBOTMODE.AUTO
+            } else if (gamepad1.b) {
+                robotMode = ROBOTMODE.CONTROLLED
+            }
         }
-
-        else if(gamepad1.b){
+        else {
             robotMode = ROBOTMODE.CONTROLLED
         }
-
         if(robotMode == ROBOTMODE.CONTROLLED){
             robot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER)
             val baseVel = Pose2d(
