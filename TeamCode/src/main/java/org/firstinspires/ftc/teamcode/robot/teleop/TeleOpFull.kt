@@ -38,17 +38,11 @@ class TeleOpFull : AutoTeleOp() {
         modules.modules.forEach {it.init()}
 
         motor = hardwareMap.get(DcMotorEx::class.java, "thrower")
-        motor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
-        motor.mode = DcMotor.RunMode.RUN_USING_ENCODER
-        val motorConfigurationType = motor.motorType.clone()
-        motorConfigurationType.achieveableMaxRPMFraction = 1.0
-        motor.motorType = motorConfigurationType
-        motor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
         val batteryVoltageSensor = hardwareMap.voltageSensor.iterator().next()
         motor1 = hardwareMap.get(DcMotor::class.java, "intake")
         motor2 = hardwareMap.get(DcMotor::class.java, "intake2")
         servo = hardwareMap.get(Servo::class.java, "servo_thrower")
-        servo.position = 0.7
+            servo.position = 0.7
 
         while (!isStopRequested){
             driveRobot(robot, true)

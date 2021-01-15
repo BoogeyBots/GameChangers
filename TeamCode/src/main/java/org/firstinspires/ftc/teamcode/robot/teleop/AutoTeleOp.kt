@@ -94,7 +94,7 @@ open class AutoTeleOp : BBLinearOpMode() {
             robot.setMode(DcMotor.RunMode.RUN_USING_ENCODER)
             robot.followTrajectory(
                     robot.trajectoryBuilder(robot.poseEstimate)
-                    .splineTo(Vector2d(0.0,0.0), 0.0)
+                    .lineTo(Vector2d(0.0,0.0))
                     .build())
             robotMode = ROBOTMODE.CONTROLLED
         }

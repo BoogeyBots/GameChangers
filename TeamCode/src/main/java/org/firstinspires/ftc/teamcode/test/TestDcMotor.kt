@@ -19,7 +19,7 @@ class TestDcMotor : BBOpMode(){
     var timex = ElapsedTime()
 
     override fun init() {
-        motor = hardwareMap.get(DcMotorEx::class.java, "leftRear")
+        motor = hardwareMap.get(DcMotorEx::class.java, "rightRear")
         motor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
     }
 
