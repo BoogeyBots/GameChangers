@@ -20,6 +20,7 @@
  */
 package org.firstinspires.ftc.teamcode.vision
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.opencv.core.Mat
@@ -36,6 +37,7 @@ import org.openftc.easyopencv.OpenCvPipeline
  * by the [OpenCvInternalCamera] interface
  */
 @TeleOp
+@Disabled
 class InternalCamera1AdvancedFeaturesExample : LinearOpMode() {
     /**
      * NB: we declare our camera as the [OpenCvInternalCamera] type,
