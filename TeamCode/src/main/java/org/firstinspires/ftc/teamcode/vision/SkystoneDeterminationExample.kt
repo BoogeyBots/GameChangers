@@ -27,6 +27,7 @@ import org.opencv.core.*
 import org.opencv.imgproc.Imgproc
 import org.openftc.easyopencv.*
 import org.openftc.easyopencv.OpenCvCamera.AsyncCameraOpenListener
+import kotlin.math.max
 
 /*
  * This sample demonstrates a basic (but battle-tested and essentially
@@ -245,8 +246,8 @@ class SkystoneDeterminationExample : LinearOpMode() {
             /*
              * Find the max of the 3 averages
              */
-            val maxOneTwo = Math.max(avg1, avg2)
-            val max = Math.max(maxOneTwo, avg3)
+            val maxOneTwo = max(avg1, avg2)
+            val max = max(maxOneTwo, avg3)
 
             /*
              * Now that we found the max, we actually need to go and

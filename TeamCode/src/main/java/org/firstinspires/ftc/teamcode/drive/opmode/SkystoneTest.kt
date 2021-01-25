@@ -7,6 +7,7 @@ import org.firstinspires.ftc.robotcore.internal.camera.WebcamExample
 import org.opencv.core.*
 import org.opencv.imgproc.Imgproc
 import org.openftc.easyopencv.*
+import kotlin.math.max
 
 
 /*
@@ -252,14 +253,13 @@ class SkystoneTest : LinearOpMode() {
             /*
              * Find the max of the 3 averages
              */
-            val maxOneTwo = Math.max(avg1, avg2)
-            val max = Math.max(maxOneTwo, avg3)
+            val maxOneTwo = max(avg1, avg2)
 
             /*
              * Now that we found the max, we actually need to go and
              * figure out which sample region that value was from
              */
-            when (max) {
+            when (max(maxOneTwo, avg3)) {
                 avg1 // Was it from region 1?
                 -> {
                     analysis = SkystonePosition.LEFT // Record our analysis

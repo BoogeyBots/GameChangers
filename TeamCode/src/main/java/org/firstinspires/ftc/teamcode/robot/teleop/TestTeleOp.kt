@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.modules.WobbleGoalModule
 @TeleOp
 class TestTeleOp : AutoTeleOp() {
 
-    override val modules = Robot(setOf(WobbleGoalModule(this), ServoWobble(this)))
+    override val modules = Robot(setOf(WobbleGoalModule(this)))
 
 
     override fun runOpMode() {
@@ -32,20 +32,12 @@ class TestTeleOp : AutoTeleOp() {
 
             }
             */
-            if(gamepad1.right_trigger > 0.1){
-                get<WobbleGoalModule>().move_goal(gamepad1.right_trigger)
-            }
-            else if(gamepad1.left_trigger > 0.14){
-                get<WobbleGoalModule>().move_goal(-gamepad1.left_trigger)
-            }
-            else{
-                get<WobbleGoalModule>().move_goal(0.0.toFloat())
-            }
+
             if(gamepad1.right_bumper){
-                get<ServoWobble>().grab()
+                get<WobbleGoalModule>().move_close()
             }
-            else if(gamepad1.left_bumper){
-                get<ServoWobble>().ungrab()
+            if(gamepad1.left_bumper){
+                get<WobbleGoalModule>().move_vertically()
             }
 
 

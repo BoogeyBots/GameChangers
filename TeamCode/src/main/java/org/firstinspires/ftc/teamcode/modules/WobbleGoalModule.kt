@@ -1,50 +1,51 @@
 package org.firstinspires.ftc.teamcode.modules
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode
-import com.qualcomm.robotcore.hardware.DcMotor
-import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.HardwareDevice
+import com.qualcomm.robotcore.hardware.Servo
 import com.qualcomm.robotcore.util.ElapsedTime
 
 class WobbleGoalModule(override val opMode: OpMode) : RobotModule
 {
     override var components: HashMap<String, HardwareDevice> = hashMapOf()
-    val wobblegoal get() = get<DcMotorEx>("wobblegoal")
-    var isUp: Boolean = true
+    val wobblegoal get() = get<Servo>("wobblegoal_servo")
+    val wobblegoal_close get() = get<Servo>("wobblegoal_close")
+
+    var wobblegoal_isUp: Boolean = true
+    var wobblegoal_close_isClosed: Boolean = false
     val MOTOR_POWER = 0.25
     val time_elapsed = ElapsedTime()
 
     override fun init() {
-        components["wobblegoal"] = hardwareMap!!.get(DcMotorEx::class.java, "wobblegoal")
-        wobblegoal.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
-        /*
-        wobblegoal.targetPosition = 210
-        wobblegoal.twoMotorsPower = MOTOR_POWER
-        wobblegoal.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
-        wobblegoal.mode = DcMotor.RunMode.RUN_TO_POSITION
-        wobblegoal.targetPositionTolerance = 5
-        wobblegoal.setVelocityPIDFCoefficients(8.0, 0.85, 6.0, 0.0)
-         */
-        wobblegoal.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
+        components["wobblegoal_servo"] = hardwareMap!!.get(Servo::class.java, "servo_test")
+        components["wobblegoal_close"] = hardwareMap!!.get(Servo::class.java, "servo_test2")
+        wobblegoal.position = 0.4
+        wobblegoal_close.position = 0.7
     }
 
-    fun move_goal(i: Float){
-        wobblegoal.power = i.toDouble()
-    }
-
-    /*
-    fun move() {
-        if(time_elapsed.seconds() > 1.0) {
-            wobblegoal.twoMotorsPower = MOTOR_POWER
-            if (isUp) {
-                wobblegoal.targetPosition = 451
-                isUp = false
-            } else {
-                wobblegoal.targetPosition = 210
-                isUp = true
-            }
+    fun move_close(){
+        if(wobblegoal_close_isClosed  && time_elapsed.milliseconds()> 200.0){
+            wobblegoal_close.position = 0.06
+            wobblegoal_close_isClosed = false
             time_elapsed.reset()
         }
+        else if(time_elapsed.milliseconds() > 200.0){
+            wobblegoal_close.position = 0.7
+            wobblegoal_close_isClosed = true
+            time_elapsed.reset()
+        }
+    }
 
-     */
+    fun move_vertically(){
+        if(wobblegoal_isUp && time_elapsed.milliseconds() > 200.0){
+            wobblegoal.position = 0.06
+            wobblegoal_isUp = false
+            time_elapsed.reset()
+        }
+        else if(time_elapsed.milliseconds() > 200.0){
+            wobblegoal.position = 0.4
+            wobblegoal_isUp = true
+            time_elapsed.reset()
+        }
+    }
 }

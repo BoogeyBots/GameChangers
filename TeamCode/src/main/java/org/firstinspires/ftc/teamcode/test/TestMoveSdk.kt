@@ -34,6 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.util.ElapsedTime
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot
+import kotlin.math.abs
 
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
@@ -133,8 +134,8 @@ class TestMoveSdk : LinearOpMode() {
 
             // reset the timeout time and start motion.
             runtime.reset()
-            robot.leftDrive.power = Math.abs(speed)
-            robot.rightDrive.power = Math.abs(speed)
+            robot.leftDrive.power = abs(speed)
+            robot.rightDrive.power = abs(speed)
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
