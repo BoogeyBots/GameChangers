@@ -17,8 +17,8 @@ class WobbleGoalModule(override val opMode: OpMode) : RobotModule
     val time_elapsed = ElapsedTime()
 
     override fun init() {
-        components["wobblegoal_servo"] = hardwareMap!!.get(Servo::class.java, "servo_test")
-        components["wobblegoal_close"] = hardwareMap!!.get(Servo::class.java, "servo_test2")
+        components["wobblegoal_servo"] = hardwareMap!!.get(Servo::class.java, "wobblegoal_servo")
+        components["wobblegoal_close"] = hardwareMap!!.get(Servo::class.java, "wobblegoal_close")
         wobblegoal.position = 0.4
         wobblegoal_close.position = 0.7
     }

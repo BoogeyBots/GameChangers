@@ -11,7 +11,7 @@ class ServoThrowerModule(override val opMode: OpMode) : RobotModule {
     val servo get() = get<Servo>("servo_thrower")
 
     override fun init() {
-        components["servo_thrower"] = hardwareMap!!.get(DcMotor::class.java, "servo_thrower")
+        components["servo_thrower"] = hardwareMap!!.get(Servo::class.java, "servo_thrower")
         servo.position = 0.7
     }
 

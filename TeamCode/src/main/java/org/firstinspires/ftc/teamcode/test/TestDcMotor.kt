@@ -19,8 +19,9 @@ class TestDcMotor : BBOpMode(){
     var timex = ElapsedTime()
 
     override fun init() {
-        motor = hardwareMap.get(DcMotorEx::class.java, "rightRear")
+        motor = hardwareMap.get(DcMotorEx::class.java, "thrower")
         motor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
+        motor.mode = DcMotor.RunMode.RUN_USING_ENCODER
     }
 
     override fun loop() {
@@ -40,6 +41,7 @@ class TestDcMotor : BBOpMode(){
         }
         telemetry.addData("Motor theoretical twoMotorsPower: ", motorPower)
         telemetry.addData("Motor twoMotorsPower: ", motor.power)
+        telemetry.addData("Encoder: ", motor.currentPosition)
         telemetry.update()
     }
 }

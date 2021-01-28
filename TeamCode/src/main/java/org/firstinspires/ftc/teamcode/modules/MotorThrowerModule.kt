@@ -12,11 +12,18 @@ class MotorThrowerModule(override val opMode: OpMode) : RobotModule {
         components["thrower"] = hardwareMap!!.get(DcMotor::class.java, "thrower")
         motor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
         motor.mode = DcMotor.RunMode.RUN_USING_ENCODER
+        /*
         val motorConfigurationType = motor.motorType.clone()
         motorConfigurationType.achieveableMaxRPMFraction = 1.0
         motor.motorType = motorConfigurationType
+
         motor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
+        q*/
     }
 
-    val power = motor.power
+
+
+    fun setPower(pw: Double){
+        motor.power = pw
+    }
 }
