@@ -21,11 +21,16 @@ import java.util.Objects;
 
 @Config
 @Autonomous(group = "drive")
-public class MaxAngularVeloTuner extends LinearOpMode {
+public class    MaxAngularVeloTuner extends LinearOpMode {
     public static double RUNTIME = 4.0;
 
     private ElapsedTime timer;
     private double maxAngVelocity = 0.0;
+
+    public void setMaxAngVelocity(double maxAngVelocity) {
+        this.maxAngVelocity = maxAngVelocity;
+    }
+
 
     @Override
     public void runOpMode() throws InterruptedException {
