@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.modules.WobbleGoalModule
 
 @TeleOp()
 class TeleOpWithModules : BBLinearOpMode(){
-    override val modules = Robot(setOf(WobbleGoalModule(this), MotorThrowerModule(this), ServoThrowerModule(this), IntakeModule(this)))
+    override val modules = Robot(setOf(WobbleGoalModule(this, inAuto = false), MotorThrowerModule(this), ServoThrowerModule(this), IntakeModule(this)))
 
     override fun runOpMode() {
         val drive = SampleMecanumDrive(hardwareMap)

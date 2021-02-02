@@ -32,6 +32,8 @@ package org.firstinspires.ftc.teamcode.vision;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.vuforia.CameraDevice;
+
 import java.util.List;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
@@ -51,9 +53,9 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
  */
 @TeleOp(name = "Concept: TensorFlow Object Detection", group = "Concept")
 public class TensorFlowObjectDetection extends LinearOpMode {
-    private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
-    private static final String LABEL_FIRST_ELEMENT = "Quad";
-    private static final String LABEL_SECOND_ELEMENT = "Single";
+    public static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
+    public static final String LABEL_FIRST_ELEMENT = "Quad";
+    public static final String LABEL_SECOND_ELEMENT = "Single";
 
     /*
      * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
@@ -67,7 +69,7 @@ public class TensorFlowObjectDetection extends LinearOpMode {
      * Once you've obtained a license key, copy the string from the Vuforia web site
      * and paste it in to your code on the next line, between the double quotes.
      */
-    private static final String VUFORIA_KEY =
+    public static final String VUFORIA_KEY =
             "AWo7bzb/////AAABmcbdWZ79Y049lfMcsRS8waNYev8AbC1EwUWqhJnr1poItrv7+etQ1bwW4BiQpg151evO66Pzt3L2LvfbBgzn4aQ3QzVBXYQBjqMScjg/gQEj0g3ldi/0ENHSKwnT48YDxtQQb5/twpwjew9wlaSkZuZ8KtZGwOZHh7vhV0xQmjh1akuPF0zmKvCn5HPnd/O9YxXR5Ef7eyQ+r15XMT7Vd7kG/PUbpCvkexwsRZ4BKGv+oV1ZWOqrYrP5WKbpzHmEOl8RggfJKD707G2Q61vTUW+MEksQwrydbwTCqzTxDUTWdOlgzG9JfGjS+jUdQ3CAN+EETNZDOQs8fIxn3Q+Bdmi823AJLEU3GDhptc7KHcjo";
 
     /**
@@ -88,6 +90,8 @@ public class TensorFlowObjectDetection extends LinearOpMode {
         // first.
         initVuforia();
         initTfod();
+        CameraDevice.getInstance().setFlashTorchMode(true);
+        CameraDevice.getInstance().setFlashTorchMode(false);
 
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
@@ -136,6 +140,7 @@ public class TensorFlowObjectDetection extends LinearOpMode {
             }
         }
 
+
         if (tfod != null) {
             tfod.shutdown();
         }
@@ -166,10 +171,11 @@ public class TensorFlowObjectDetection extends LinearOpMode {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
-        tfodParameters.minResultConfidence = 0.70f; //0.83
+        tfodParameters.minResultConfidence = 0.61f; //0.83
 
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
-        tfod.setZoom(1.5, 1.7777);
+        //tfod.setClippingMargins(200, 0, 250, 950);
+        tfod.setZoom(1.0, 1.777);
     }
 }

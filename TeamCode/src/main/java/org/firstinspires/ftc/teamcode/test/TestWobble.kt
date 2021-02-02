@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.modules.WobbleGoalModule
 
 @TeleOp
 class TestWobble : BBLinearOpMode(){
-    override val modules = Robot(setOf(WobbleGoalModule(this), ServoWobble(this)))
+    override val modules = Robot(setOf(WobbleGoalModule(this, inAuto = false), ServoWobble(this)))
     override fun runOpMode() {
         if(gamepad1.a){
             get<ServoWobble>().grab()

@@ -19,9 +19,9 @@ class TestDcMotor : BBOpMode(){
     var timex = ElapsedTime()
 
     override fun init() {
-        motor = hardwareMap.get(DcMotorEx::class.java, "thrower")
+        motor = hardwareMap.get(DcMotorEx::class.java, "intake2")
         motor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
-        motor.mode = DcMotor.RunMode.RUN_USING_ENCODER
+        //motor.mode = DcMotor.RunMode.RUN_USING_ENCODER
     }
 
     override fun loop() {

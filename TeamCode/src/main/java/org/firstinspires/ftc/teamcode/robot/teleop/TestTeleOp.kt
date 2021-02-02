@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.modules.WobbleGoalModule
 @TeleOp
 class TestTeleOp : AutoTeleOp() {
 
-    override val modules = Robot(setOf(WobbleGoalModule(this)))
+    override val modules = Robot(setOf(WobbleGoalModule(this, false)))
 
 
     override fun runOpMode() {

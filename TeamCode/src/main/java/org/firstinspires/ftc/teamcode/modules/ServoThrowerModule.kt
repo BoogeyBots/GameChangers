@@ -20,7 +20,7 @@ class ServoThrowerModule(override val opMode: OpMode) : RobotModule {
     }
 
     fun open(){
-        servo.position = 0.4
+        servo.position = 0.5
     }
 
 }
