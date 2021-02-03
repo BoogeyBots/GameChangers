@@ -27,9 +27,18 @@ class TeleOpWithModules : BBLinearOpMode(){
         waitForStart()
 
         while (!isStopRequested) {
+            if(gamepad1.left_trigger > 0.0){
+                forwardMovement = gamepad1.left_trigger.toDouble()
+            }
+            else if(gamepad1.right_trigger > 0.0){
+                forwardMovement = -gamepad1.right_trigger.toDouble()
+            }
+            else{
+                forwardMovement = .0
+            }
             drive.setWeightedDrivePower(
                     Pose2d(
-                            (-gamepad1.left_stick_y).toDouble(),
+                            forwardMovement,
                             (-gamepad1.left_stick_x).toDouble(),
                             (-gamepad1.right_stick_x).toDouble()
                     )
@@ -44,18 +53,17 @@ class TeleOpWithModules : BBLinearOpMode(){
             if(gamepad1.left_bumper){
                 get<WobbleGoalModule>().move_close()
             }
+            if(gamepad1.b){
+                get<WobbleGoalModule>().move_endgame()
+            }
 
 
-            if(gamepad2.y and (motorPower < 1 && timeElapsed.seconds() > 0.1)) {
-                motorPower += 0.05
-                timeElapsed.reset()
-            }
-            else if(gamepad2.a and (motorPower > 0 && timeElapsed.seconds() > 0.1)){
-                motorPower -= 0.05
-                timeElapsed.reset()
-            }
+
             if (gamepad2.x){
-                get<MotorThrowerModule>().setPower(motorPower)
+                get<MotorThrowerModule>().setPower(0.75)
+            }
+            else if(gamepad2.y){
+                get<MotorThrowerModule>().setPower(0.70)
             }
             else{
                 get<MotorThrowerModule>().setPower(0.0)
@@ -78,7 +86,7 @@ class TeleOpWithModules : BBLinearOpMode(){
                 get<IntakeModule>().stop()
             }
 
-            telemetry.addData("Putere Teoretica: ", motorPower)
+            //telemetry.addData("Putere Teoretica: ", motorPower)
             telemetry.update()
 
         }
@@ -86,6 +94,6 @@ class TeleOpWithModules : BBLinearOpMode(){
 
     companion object{
         var timeElapsed = ElapsedTime()
-        var motorPower: Double = 0.0
+        var forwardMovement: Double = 0.0
     }
 }

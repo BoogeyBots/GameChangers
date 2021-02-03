@@ -176,6 +176,6 @@ public class TensorFlowObjectDetection extends LinearOpMode {
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
         //tfod.setClippingMargins(200, 0, 250, 950);
-        tfod.setZoom(1.0, 1.777);
+        tfod.setZoom(1.5, 1.777);
     }
 }

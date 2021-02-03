@@ -46,7 +46,7 @@ class Recognition(override val opMode: OpMode) : RobotModule {
         tfod!!.loadModelFromAsset(TensorFlowObjectDetection.TFOD_MODEL_ASSET, TensorFlowObjectDetection.LABEL_FIRST_ELEMENT, TensorFlowObjectDetection.LABEL_SECOND_ELEMENT)
         //tfod.setClippingMargins(200, 0, 250, 950);
         //tfod.setClippingMargins(200, 0, 250, 950);
-        tfod!!.setZoom(1.0, 1.777)
+        tfod!!.setZoom(1.5, 1.777)
     }
 
     fun recognizeRings(): NrRings {

@@ -74,4 +74,11 @@ class WobbleGoalModule(override val opMode: OpMode,val inAuto: Boolean) : RobotM
             }
         }
     }
+
+    fun move_endgame() {
+        if (time_elapsed.milliseconds() > 200.0) {
+            wobblegoal.position = 0.25 //rares e sef
+            wobblegoal_isUp = true
+        }
+    }
 }

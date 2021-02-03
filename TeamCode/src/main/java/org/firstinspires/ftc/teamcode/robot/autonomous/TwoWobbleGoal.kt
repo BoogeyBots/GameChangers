@@ -53,10 +53,10 @@ class TwoWobbleGoal : BBLinearOpMode(){
                     .build()
 
             val trajectory3 = robot.trajectoryBuilder(Pose2d(-1.0, -32.0, Math.toRadians(180.0)))
-                    .lineTo(Vector2d(-1.0, -26.2))
+                    .lineTo(Vector2d(-1.0, -24.7))
                     .build()
 
-            val trajectory4 = robot.trajectoryBuilder(Pose2d(-1.0, -26.2, Math.toRadians(180.0)))
+            val trajectory4 = robot.trajectoryBuilder(Pose2d(-1.0, -24.7, Math.toRadians(180.0)))
                     .lineTo(Vector2d(-32.9, -26.2))
                     .build()
 
@@ -81,7 +81,7 @@ class TwoWobbleGoal : BBLinearOpMode(){
 
             robot.followTrajectory(trajectory3)
             robot.followTrajectory(trajectory4)
-            get<WobbleGoalModule>().wobblegoal.position = 0.06
+            get<WobbleGoalModule>().wobblegoal.position = 0.05
 
             wait(0.2)
             get<WobbleGoalModule>().move_close()
@@ -99,7 +99,7 @@ class TwoWobbleGoal : BBLinearOpMode(){
 
         if(nrRings == Recognition.NrRings.ZERO){
             val trajectory1 = robot.trajectoryBuilder(startPose)
-                    .lineTo(Vector2d(0.0, -62.0))
+                    .lineTo(Vector2d(0.0, -65.0))
                     .addDisplacementMarker {
                         get<WobbleGoalModule>().move_vertically()
                         wait(.3)
@@ -169,6 +169,78 @@ class TwoWobbleGoal : BBLinearOpMode(){
             robot.followTrajectory(trajectory6)
             robot.followTrajectory(trajectory7)
         }
+
+        if(nrRings == Recognition.NrRings.FOUR) {
+            val trajectory1 = robot.trajectoryBuilder(startPose)
+                    .splineTo(Vector2d(-25.0, -55.0), Math.toRadians(0.0))
+                    .splineTo(Vector2d(48.0, -65.5), Math.toRadians(0.0))
+
+                    .addDisplacementMarker {
+                        get<WobbleGoalModule>().move_vertically()
+                        wait(.3)
+                    }
+                    .addDisplacementMarker {
+                        get<WobbleGoalModule>().move_close()
+                    }
+                    .build()
+
+            val trajectory2 = robot.trajectoryBuilder(Pose2d(50.0, -63.5, 0.0))
+                    .lineTo(Vector2d(-1.0, -32.0))
+                    .build()
+
+            val trajectory3 = robot.trajectoryBuilder(Pose2d(-1.0, -32.0, Math.toRadians(180.0)))
+                    .lineTo(Vector2d(-1.0, -26.2))
+                    .build()
+
+            val trajectory4 = robot.trajectoryBuilder(Pose2d(-1.0, -26.2, Math.toRadians(180.0)))
+                    .lineTo(Vector2d(-32.4, -26.2))
+                    .build()
+
+            val trajectory5 = robot.trajectoryBuilder(Pose2d(-32.4,-26.2, Math.toRadians(0.0)))
+                    .splineTo(Vector2d(-15.0, -24.0), 0.0)
+                    .splineTo(Vector2d(42.0, -62.0), 0.00)
+                    .build()
+
+
+            val trajectory6 = robot.trajectoryBuilder(Pose2d(42.0, -62.0, 0.0))
+                    .back(24.0)
+                    .build()
+
+            robot.followTrajectory(trajectory1)
+            robot.followTrajectory(trajectory2)
+            robot.turn(Math.toRadians(180.0))
+            get<MotorThrowerModule>().setPower(0.75)
+            wait(0.75)
+
+            for(i in 1..3){
+                get<ServoThrowerModule>().open()
+                wait(0.2 )
+                get<ServoThrowerModule>().close()
+                wait(0.3)
+            }
+
+            get<MotorThrowerModule>().setPower(0.0)
+
+            robot.followTrajectory(trajectory3)
+            robot.followTrajectory(trajectory4)
+            get<WobbleGoalModule>().wobblegoal.position = 0.06
+
+            wait(0.2)
+            get<WobbleGoalModule>().move_close()
+            wait(0.7)
+            get<WobbleGoalModule>().wobblegoal.position = 0.12
+            wait(.4)
+
+            robot.turn(Math.toRadians(180.0))
+            wait(.1)
+
+            robot.followTrajectory(trajectory5)
+            get<WobbleGoalModule>().move_close()
+            robot.followTrajectory(trajectory6)
+            //wait(1.0)
+
+        }
+
 
     }
 
