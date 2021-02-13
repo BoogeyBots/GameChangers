@@ -27,11 +27,11 @@ class TeleOpWithModules : BBLinearOpMode(){
         waitForStart()
 
         while (!isStopRequested) {
-            if(gamepad1.left_trigger > 0.0){
-                forwardMovement = gamepad1.left_trigger.toDouble()
+            if(gamepad1.right_trigger > 0.0){
+                forwardMovement = gamepad1.right_trigger.toDouble()
             }
-            else if(gamepad1.right_trigger > 0.0){
-                forwardMovement = -gamepad1.right_trigger.toDouble()
+            else if(gamepad1.left_trigger > 0.0){
+                forwardMovement = -gamepad1.left_trigger.toDouble()
             }
             else{
                 forwardMovement = .0

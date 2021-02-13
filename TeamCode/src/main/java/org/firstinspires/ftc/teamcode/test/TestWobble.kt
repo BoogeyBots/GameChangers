@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.test
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.teamcode.Robot
@@ -9,6 +10,7 @@ import org.firstinspires.ftc.teamcode.modules.ServoWobble
 import org.firstinspires.ftc.teamcode.modules.WobbleGoalModule
 
 @TeleOp
+@Disabled
 class TestWobble : BBLinearOpMode(){
     override val modules = Robot(setOf(WobbleGoalModule(this, inAuto = false), ServoWobble(this)))
     override fun runOpMode() {

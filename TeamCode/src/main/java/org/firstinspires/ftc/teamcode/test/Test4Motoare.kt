@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.test
 
 import com.acmerobotics.dashboard.config.Config
+import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.CRServo
 import com.qualcomm.robotcore.hardware.DcMotor
@@ -13,6 +14,7 @@ import org.firstinspires.ftc.teamcode.bbopmode.BBOpMode
 import org.firstinspires.ftc.teamcode.modules.TestModule
 
 @Config
+@Disabled
 @TeleOp(group="drive")
 class Test4Motoare : BBOpMode(){
     lateinit var motor1: DcMotor

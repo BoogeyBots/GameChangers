@@ -29,7 +29,7 @@ class TwoWobbleGoal : BBLinearOpMode(){
 
         val nrRings = get<Recognition>().recognizeRings()
 
-        val startPose = Pose2d(-63.0, -42.4)
+        val startPose = Pose2d(-63.0, -43.7)
         robot.poseEstimate = startPose
 
         waitForStart()
@@ -53,17 +53,20 @@ class TwoWobbleGoal : BBLinearOpMode(){
                     .build()
 
             val trajectory3 = robot.trajectoryBuilder(Pose2d(-1.0, -32.0, Math.toRadians(180.0)))
-                    .lineTo(Vector2d(-1.0, -24.7))
+                    .lineTo(Vector2d(-1.0, -23.7))
                     .build()
 
-            val trajectory4 = robot.trajectoryBuilder(Pose2d(-1.0, -24.7, Math.toRadians(180.0)))
-                    .lineTo(Vector2d(-33.4, -27.2))
+            val trajectory4 = robot.trajectoryBuilder(Pose2d(-1.0, -23.7, Math.toRadians(180.0)))
+                    .lineTo(Vector2d(-33.9, -25.7))
                     .build()
 
-            val trajectory5 = robot.trajectoryBuilder(Pose2d(-33.4, -27.2, Math.toRadians(0.0)))
+            val trajectory5 = robot.trajectoryBuilder(Pose2d(-33.9, -25.7, Math.toRadians(0.0)))
                     .splineTo(Vector2d(18.0, -41.0), 0.00)
                     .build()
 
+            val trajectory6 = robot.trajectoryBuilder(Pose2d(18.0, -41.0, Math.toRadians(-30.0)))
+                    .back(5.0)
+                    .build()
 
 
             robot.followTrajectory(trajectory1)
@@ -85,7 +88,7 @@ class TwoWobbleGoal : BBLinearOpMode(){
             robot.followTrajectory(trajectory4)
             get<WobbleGoalModule>().wobblegoal.position = 0.05
 
-            wait(0.2)
+            wait(0.6)
             get<WobbleGoalModule>().move_close()
             wait(0.7)
             get<WobbleGoalModule>().wobblegoal.position = 0.12
@@ -98,12 +101,13 @@ class TwoWobbleGoal : BBLinearOpMode(){
             robot.turn(-Math.toRadians(30.0))
             get<WobbleGoalModule>().move_close()
             wait(1.0)
+            robot.followTrajectory(trajectory6)
 
         }
 
         if(nrRings == Recognition.NrRings.ZERO){
             val trajectory1 = robot.trajectoryBuilder(startPose)
-                    .lineTo(Vector2d(0.0, -63.0))
+                    .lineTo(Vector2d(-0.7, -64.0))
                     .addDisplacementMarker {
                         get<WobbleGoalModule>().move_vertically()
                         wait(.3)
@@ -122,10 +126,10 @@ class TwoWobbleGoal : BBLinearOpMode(){
                     .build()
 
             val trajectory4 = robot.trajectoryBuilder(Pose2d(-1.0, -26.2, Math.toRadians(180.0)))
-                    .lineTo(Vector2d(-32.9, -25.2))
+                    .lineTo(Vector2d(-33.4, -23.7))
                     .build()
 
-            val trajectory5 = robot.trajectoryBuilder(Pose2d(-32.9, -25.2, Math.toRadians(0.0)))
+            val trajectory5 = robot.trajectoryBuilder(Pose2d(-33.4, -23.7, Math.toRadians(0.0)))
                     .lineTo(Vector2d(-8.0, -63.5))
                     .build()
 
@@ -158,7 +162,7 @@ class TwoWobbleGoal : BBLinearOpMode(){
             robot.followTrajectory(trajectory3)
             robot.followTrajectory(trajectory4)
             get<WobbleGoalModule>().wobblegoal.position = 0.06
-            wait(0.2)
+            wait(0.5)
             get<WobbleGoalModule>().move_close()
             wait(0.7)
             get<WobbleGoalModule>().wobblegoal.position = 0.12
@@ -168,6 +172,7 @@ class TwoWobbleGoal : BBLinearOpMode(){
             wait(.1)
 
             robot.followTrajectory(trajectory5)
+            robot.turn(Math.toRadians(-25.0))
             get<WobbleGoalModule>().move_close()
             wait(.5)
             robot.followTrajectory(trajectory6)
@@ -177,7 +182,7 @@ class TwoWobbleGoal : BBLinearOpMode(){
         if(nrRings == Recognition.NrRings.FOUR) {
             val trajectory1 = robot.trajectoryBuilder(startPose)
                     .splineTo(Vector2d(-25.0, -55.0), Math.toRadians(0.0))
-                    .splineTo(Vector2d(48.0, -65.5), Math.toRadians(0.0))
+                    .splineTo(Vector2d(50.0, -65.5), Math.toRadians(0.0))
 
                     .addDisplacementMarker {
                         get<WobbleGoalModule>().move_vertically()
@@ -188,7 +193,7 @@ class TwoWobbleGoal : BBLinearOpMode(){
                     }
                     .build()
 
-            val trajectory2 = robot.trajectoryBuilder(Pose2d(50.0, -63.5, 0.0))
+            val trajectory2 = robot.trajectoryBuilder(Pose2d(52.0, -63.5, 0.0))
                     .lineTo(Vector2d(-1.0, -32.0))
                     .build()
 
@@ -202,12 +207,11 @@ class TwoWobbleGoal : BBLinearOpMode(){
 
             val trajectory5 = robot.trajectoryBuilder(Pose2d(-32.4,-26.2, Math.toRadians(0.0)))
                     .splineTo(Vector2d(-15.0, -24.0), 0.0)
-                    .splineTo(Vector2d(42.0, -62.0), 0.00)
+                    .splineTo(Vector2d(42.0, -64.0), 0.00)
                     .build()
 
-
-            val trajectory6 = robot.trajectoryBuilder(Pose2d(42.0, -62.0, 0.0))
-                    .back(24.0)
+            val trajectory6 = robot.trajectoryBuilder(Pose2d(42.0, -64.0, Math.toRadians(-30.0)))
+                    .back(30.0)
                     .build()
 
             robot.followTrajectory(trajectory1)
@@ -239,7 +243,9 @@ class TwoWobbleGoal : BBLinearOpMode(){
             wait(.1)
 
             robot.followTrajectory(trajectory5)
+            robot.turn(Math.toRadians(-30.0))
             get<WobbleGoalModule>().move_close()
+            wait(.6)
             robot.followTrajectory(trajectory6)
             //wait(1.0)
 

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.robot.teleop
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorEx
@@ -13,6 +14,7 @@ import org.firstinspires.ftc.teamcode.modules.TestModule
 import org.firstinspires.ftc.teamcode.modules.WobbleGoalModule
 
 @TeleOp
+@Disabled
 class TeleOpFull : AutoTeleOp() {
 
     override val modules = Robot(setOf(TestModule(this)))

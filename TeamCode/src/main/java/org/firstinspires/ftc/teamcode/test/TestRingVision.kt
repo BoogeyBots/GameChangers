@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName
 import org.openftc.easyopencv.*
 
+
 @TeleOp(name = "Test OpenCv")
 class UGContourRingPipelineKtExample: LinearOpMode() {
     companion object {

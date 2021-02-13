@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.robot.autonomous
 
 import com.acmerobotics.roadrunner.geometry.Pose2d
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
+import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import org.firstinspires.ftc.teamcode.Mecanum
 import org.firstinspires.ftc.teamcode.Robot
 import org.firstinspires.ftc.teamcode.bbopmode.BBLinearOpMode
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.teamcode.modules.Recognition
 import org.firstinspires.ftc.teamcode.modules.ServoThrowerModule
 import org.firstinspires.ftc.teamcode.modules.WobbleGoalModule
 
+@Disabled
 @Autonomous()
 class ShootTest : BBLinearOpMode() {
 
