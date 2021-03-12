@@ -17,11 +17,10 @@ class IntakeModule(override val opMode: OpMode) : RobotModule{
 
     fun move(dir: Boolean){
         if(dir){
-            motor.power = -0.65
+            motor.power = -0.7  
         }
         else{
-            motor.power = 0.65
-
+            motor.power = 0.7
         }
     }
 
