@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.hardware.Servo
 
 class ServoThrowerModule(override val opMode: OpMode) : RobotModule {
     override var components: HashMap<String, HardwareDevice> = hashMapOf()
-
     val servo get() = get<Servo>("servo_thrower")
 
     override fun init() {
@@ -22,5 +21,4 @@ class ServoThrowerModule(override val opMode: OpMode) : RobotModule {
     fun open(){
         servo.position = 0.5
     }
-
 }

@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive
 import org.firstinspires.ftc.teamcode.modules.IntakeModule
 import org.firstinspires.ftc.teamcode.modules.MotorThrowerModule
 import org.firstinspires.ftc.teamcode.modules.ServoThrowerModule
-import org.firstinspires.ftc.teamcode.modules.WobbleGoalModule
+import org.firstinspires.ftc.teamcode.modules.WobbleGoalModule  
 
 @TeleOp()
 class TeleOpTest : BBLinearOpMode(){
@@ -20,6 +20,7 @@ class TeleOpTest : BBLinearOpMode(){
 
     override fun runOpMode() {
         val drive = SampleMecanumDrive(hardwareMap)
+        
         var auto = false
 
         modules.modules.forEach(){
@@ -30,42 +31,23 @@ class TeleOpTest : BBLinearOpMode(){
         waitForStart()
 
         while (!isStopRequested) {
-            if(!auto) {
-                if (gamepad1.right_trigger > 0.0) {
-                    forwardMovement = gamepad1.right_trigger.toDouble()
-                } else if (gamepad1.left_trigger > 0.0) {
-                    forwardMovement = -gamepad1.left_trigger.toDouble()
-                } else {
-                    forwardMovement = .0
-                }
-                drive.setWeightedDrivePower(
-                        Pose2d(
-                                forwardMovement,
-                                (-gamepad1.left_stick_x).toDouble(),
-                                (-gamepad1.right_stick_x).toDouble()
-                        )
-                )
-                if(gamepad1.x){
-                    auto = true
-                }
+
+            if (gamepad1.right_trigger > 0.0) {
+                forwardMovement = gamepad1.right_trigger.toDouble()
+            } else if (gamepad1.left_trigger > 0.0) {
+                forwardMovement = -gamepad1.left_trigger.toDouble()
+            } else {
+                forwardMovement = .0
             }
-            else{
-                drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER)
-                get<MotorThrowerModule>().setPower(0.70)
-                for(i in 1..3){
-                    drive.turn(20.0)
-                    get<ServoThrowerModule>().open()
-                    wait(0.2)
-                    get<ServoThrowerModule>().close()
-                }
-                if(gamepad1.x){
-                    auto = false
-                }
-                auto = false
-            }
+            drive.setWeightedDrivePower(
+                    Pose2d(
+                            forwardMovement,
+                            (-gamepad1.left_stick_x).toDouble(),
+                            (-gamepad1.right_stick_x).toDouble()
+                    )
+            )
 
             drive.update()
-
 
             if(gamepad1.right_bumper){
                 get<WobbleGoalModule>().move_vertically()
@@ -76,8 +58,6 @@ class TeleOpTest : BBLinearOpMode(){
             if(gamepad1.b){
                 get<WobbleGoalModule>().move_endgame()
             }
-
-
 
             if (gamepad2.x){
                 get<MotorThrowerModule>().setPower(0.75)
@@ -91,11 +71,26 @@ class TeleOpTest : BBLinearOpMode(){
 
             if (gamepad2.left_bumper) {
                 for (i in 1..3) {
+                    drive.setWeightedDrivePower(Pose2d(0.0,0.0,0.0))
                     get<ServoThrowerModule>().open()
                     wait(0.2)
                     get<ServoThrowerModule>().close()
                     wait(0.2)
                 }
+            }
+
+            if (gamepad2.right_bumper) {
+                get<ServoThrowerModule>().open()
+                wait(0.2)
+                get<ServoThrowerModule>().close()
+                wait(0.2)
+            }
+
+            if (gamepad2.left_bumper){
+                get<ServoThrowerModule>().close()
+            }
+            else if(gamepad2.right_bumper){
+                get<ServoThrowerModule>().open()
             }
 
 

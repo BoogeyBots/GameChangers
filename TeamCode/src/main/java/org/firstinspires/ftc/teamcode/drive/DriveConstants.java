@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.drive;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.roadrunner.trajectory.constraints.DriveConstraints;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 /*
@@ -53,9 +52,9 @@ public class DriveConstants {
      * motor encoders or have elected not to use them for velocity control, these values should be
      * empirically tuned.
      */
-    public static double kV = 0.022; //0.02278 / rpmToVelocity(MAX_RPM)
-    public static double kA = 0.0014;
-    public static double kStatic = 0.068;
+    public static double kV = 0.0215; //0.02278 / rpmToVelocity(MAX_RPM)
+    public static double kA = 0.002;
+    public static double kStatic = 0.08;
 
     /*
      * These values are used to generate the trajectories for you robot. To ensure proper operation,
@@ -65,16 +64,10 @@ public class DriveConstants {
      * acceleration values are required, and the jerk values are optional (setting a jerk of 0.0
      * forces acceleration-limited profiling). All distance units are inches.
      */
-    public static double MAX_VEL = 30;
-    public static double MAX_ACCEL = 30;
-    public static double MAX_ANG_VEL = Math.toRadians(60);
-    public static double MAX_ANG_ACCEL = Math.toRadians(60);
-
-    public static DriveConstraints BASE_CONSTRAINTS = new DriveConstraints(
-            46.0, 46.0, 0.0,
-            Math.toRadians(180.0), Math.toRadians(180.0), 0.0
-    );
-
+    public static double MAX_VEL = 40;
+    public static double MAX_ACCEL = 40;
+    public static double MAX_ANG_VEL = Math.toRadians(180);
+    public static double MAX_ANG_ACCEL = Math.toRadians(180);
 
     public static double encoderTicksToInches(double ticks) {
         return WHEEL_RADIUS * 2 * Math.PI * GEAR_RATIO * ticks / TICKS_PER_REV;

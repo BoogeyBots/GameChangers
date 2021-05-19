@@ -25,11 +25,11 @@ class TestDcMotor : BBOpMode(){
     }
 
     override fun loop() {
-        if(gamepad1.y and (motorPower < 1 && timex.seconds() > 0.1)) {
+        if(gamepad1.y and (motorPower < 0.0 && timex.seconds() > 0.1)) {
             motorPower += 0.05
             timex.reset()
         }
-        else if(gamepad1.a and (motorPower > 0 && timex.seconds() > 0.1)){
+        else if(gamepad1.a and (motorPower > -1.0 && timex.seconds() > 0.1)){
             motorPower -= 0.05
             timex.reset()
         }

@@ -31,11 +31,11 @@ class WobbleGoalModule(override val opMode: OpMode,val inAuto: Boolean) : RobotM
 
     fun move_close(){
         if(!(inAuto)) {
-            if (wobblegoal_close_isClosed && time_elapsed.milliseconds() > 200.0) {
+            if (wobblegoal_close_isClosed && time_elapsed.milliseconds() > 500.0) {
                 wobblegoal_close.position = 0.04
                 wobblegoal_close_isClosed = false
                 time_elapsed.reset()
-            } else if (time_elapsed.milliseconds() > 200.0) {
+            } else if (time_elapsed.milliseconds() > 500.0) {
                 wobblegoal_close.position = 0.7
                 wobblegoal_close_isClosed = true
                 time_elapsed.reset()
@@ -54,11 +54,11 @@ class WobbleGoalModule(override val opMode: OpMode,val inAuto: Boolean) : RobotM
 
     fun move_vertically(){
         if(!inAuto) {
-            if (wobblegoal_isUp && time_elapsed.milliseconds() > 200.0) {
+            if (wobblegoal_isUp && time_elapsed.milliseconds() > 500.0) {
                 wobblegoal.position = 0.06
                 wobblegoal_isUp = false
                 time_elapsed.reset()
-            } else if (time_elapsed.milliseconds() > 200.0) {
+            } else if (time_elapsed.milliseconds() > 500.0) {
                 wobblegoal.position = 0.4
                 wobblegoal_isUp = true
                 time_elapsed.reset()
@@ -76,7 +76,7 @@ class WobbleGoalModule(override val opMode: OpMode,val inAuto: Boolean) : RobotM
     }
 
     fun move_endgame() {
-        if (time_elapsed.milliseconds() > 200.0) {
+        if (time_elapsed.milliseconds() > 500.0) {
             wobblegoal.position = 0.25 //rares e sef
             wobblegoal_isUp = true
         }

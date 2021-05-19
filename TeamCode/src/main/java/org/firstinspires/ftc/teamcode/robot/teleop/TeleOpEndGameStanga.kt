@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.modules.ServoThrowerModule
 import org.firstinspires.ftc.teamcode.modules.WobbleGoalModule
 
 @TeleOp()
-class TeleOpEndGame : BBLinearOpMode(){
+class TeleOpEndGameStanga : BBLinearOpMode(){
     override val modules = Robot(setOf(WobbleGoalModule(this, inAuto = false), MotorThrowerModule(this), ServoThrowerModule(this), IntakeModule(this)))
 
     enum class Mode {
@@ -121,42 +121,48 @@ class TeleOpEndGame : BBLinearOpMode(){
                     }
 
                     if (gamepad1.a) {
-                        drive.poseEstimate = Pose2d(0.0,0.0,0.0)
+                        get<MotorThrowerModule>().setPower(.65)
 
-                        get<MotorThrowerModule>().setPower(.67)
-
+                        drive.poseEstimate = Pose2d(0.0,0.0)
                         val traj1 = drive.trajectoryBuilder(Pose2d(0.0,0.0))
-                                .lineTo(Vector2d(0.0, -5.0))
+                                .lineTo(Vector2d(0.0, 17.7))
                                 .build()
 
                         drive.followTrajectory(traj1)
 
-                        drive.turn(Math.toRadians(28.0))
-
-                        wait(1.0)
-                        get<ServoThrowerModule>().open()
-                        wait(.2)
-                        get<ServoThrowerModule>().close()
-                        wait(.3)
-
-                        drive.turn(Math.toRadians(7.0))
-                        wait(.8)
+                        wait(.5)
 
                         get<ServoThrowerModule>().open()
                         wait(.2)
                         get<ServoThrowerModule>().close()
                         wait(.3)
 
-                        drive.turn(Math.toRadians(7.0))
-                        wait(.8)
+                        drive.poseEstimate = Pose2d(0.0,0.0)
+                        val traj2 = drive.trajectoryBuilder(Pose2d(0.0,0.0))
+                                .lineTo(Vector2d(0.0, 7.40))
+                                .build()
 
+                        drive.followTrajectory(traj2)
+
+                        wait(1.5)
                         get<ServoThrowerModule>().open()
                         wait(.2)
                         get<ServoThrowerModule>().close()
                         wait(.3)
 
+                        drive.poseEstimate = Pose2d(0.0,0.0)
+                        val traj3 = drive.trajectoryBuilder(Pose2d(0.0,0.0), SampleMecanumDrive.getVelocityConstraint(slowerVelocity, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                                SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
+                                .lineTo(Vector2d(0.0, 7.40))
+                                .build()
 
+                        drive.followTrajectory(traj3)
 
+                        wait(1.5)
+                        get<ServoThrowerModule>().open()
+                        wait(.2)
+                        get<ServoThrowerModule>().close()
+                        wait(.3)
                         currentMode = Mode.AUTOMATIC_CONTROL
                     }
                     drive.update()
