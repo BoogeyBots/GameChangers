@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.util.ElapsedTime
 import org.firstinspires.ftc.teamcode.Robot
 import org.firstinspires.ftc.teamcode.bbopmode.BBLinearOpMode
 import org.firstinspires.ftc.teamcode.bbopmode.get
-import org.firstinspires.ftc.teamcode.drive.DriveConstants
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive
 import org.firstinspires.ftc.teamcode.modules.IntakeModule
 import org.firstinspires.ftc.teamcode.modules.MotorThrowerModule
@@ -126,7 +125,7 @@ class TeleOpEndGameStanga : BBLinearOpMode(){
 
                         drive.poseEstimate = Pose2d(0.0,0.0)
                         val traj1 = drive.trajectoryBuilder(Pose2d(0.0,0.0))
-                                .lineTo(Vector2d(0.0, 17.7) )
+                                .lineTo(Vector2d(0.0, 17.7))
                                 .build()
 
                         drive.followTrajectory(traj1)
@@ -152,12 +151,11 @@ class TeleOpEndGameStanga : BBLinearOpMode(){
                         wait(.3)
 
                         drive.poseEstimate = Pose2d(0.0,0.0)
-                        val traj3 = drive.trajectoryBuilder(Pose2d(0.0,0.0), )
+                        val traj3 = drive.trajectoryBuilder(Pose2d(0.0,0.0))
                                 .lineTo(Vector2d(0.0, 7.40))
                                 .build()
 
                         drive.followTrajectory(traj3)
-
 
                         wait(1.5)
                         get<ServoThrowerModule>().open()
