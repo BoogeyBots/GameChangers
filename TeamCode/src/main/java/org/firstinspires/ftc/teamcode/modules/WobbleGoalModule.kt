@@ -10,6 +10,7 @@ class WobbleGoalModule(override val opMode: OpMode,val inAuto: Boolean) : RobotM
 
     override var components: HashMap<String, HardwareDevice> = hashMapOf()
     val wobblegoal get() = get<Servo>("wobblegoal_servo")
+    val wobblegoal2 get() = get<Servo>("wobblegoal_servo2")
     val wobblegoal_close get() = get<Servo>("wobblegoal_close")
 
     var wobblegoal_isUp: Boolean = true
@@ -21,11 +22,24 @@ class WobbleGoalModule(override val opMode: OpMode,val inAuto: Boolean) : RobotM
 
     override fun init() {
         components["wobblegoal_servo"] = hardwareMap!!.get(Servo::class.java, "wobblegoal_servo")
+        components["wobblegoal_servo2"] = hardwareMap!!.get(Servo::class.java, "wobblegoal_servo2")
+
         components["wobblegoal_close"] = hardwareMap!!.get(Servo::class.java, "wobblegoal_close")
+
         wobblegoal_close.position = 0.04
-        while(x>=0.4){
-            x -= 0.0005
-            wobblegoal.position = x
+        if(inAuto) {
+            while (x >= wobble1_up) {
+                x -= 0.0005
+                wobblegoal.position = x
+            }
+            while (x >= wobble2_up) {
+                x -= 0.0005
+                wobblegoal2.position = x
+            }
+        }
+        else{
+            wobblegoal.position = wobble1_init
+            wobblegoal2.position = wobble2_init
         }
     }
 
@@ -55,30 +69,53 @@ class WobbleGoalModule(override val opMode: OpMode,val inAuto: Boolean) : RobotM
     fun move_vertically(){
         if(!inAuto) {
             if (wobblegoal_isUp && time_elapsed.milliseconds() > 500.0) {
-                wobblegoal.position = 0.06
+                wobblegoal.position = wobble1_down
+                wobblegoal2.position = wobble2_down
                 wobblegoal_isUp = false
                 time_elapsed.reset()
             } else if (time_elapsed.milliseconds() > 500.0) {
-                wobblegoal.position = 0.4
+                wobblegoal.position = wobble1_up
+                wobblegoal2.position = wobble2_up
                 wobblegoal_isUp = true
                 time_elapsed.reset()
             }
         }
         else{
             if (wobblegoal_isUp ) {
-                wobblegoal.position = 0.06
+                wobblegoal.position = wobble1_down
+                wobblegoal2.position = wobble2_down
                 wobblegoal_isUp = false
             } else {
-                wobblegoal.position = 0.4
+                wobblegoal.position = wobble1_up
+                wobblegoal2.position = wobble2_up
                 wobblegoal_isUp = true
             }
         }
     }
 
+    fun move_down(){
+        wobblegoal_isUp = false
+        wobblegoal.position = wobble1_init
+        wobblegoal2.position = wobble2_init
+    }
+
     fun move_endgame() {
         if (time_elapsed.milliseconds() > 500.0) {
-            wobblegoal.position = 0.25 //rares e sef
+            wobblegoal.position = wobble1_endgame
+            wobblegoal2.position = wobble2_endgame
             wobblegoal_isUp = true
         }
+    }
+
+    companion object{
+        val wobble1_init = 0.912
+        val wobble1_up = 0.6144
+        val wobble1_down = 0.277
+        val wobble1_endgame = 0.514
+
+        val wobble2_init = 0.0794
+        val wobble2_up = 0.37
+        val wobble2_down = 0.712
+        val wobble2_endgame = 0.46
     }
 }

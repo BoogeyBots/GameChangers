@@ -65,6 +65,9 @@ class TeleOpTest : BBLinearOpMode(){
             else if(gamepad2.y){
                 get<MotorThrowerModule>().setPower(0.70)
             }
+            else if(gamepad2.a){
+                get<MotorThrowerModule>().setPower(0.73)
+            }
             else{
                 get<MotorThrowerModule>().setPower(0.0)
             }

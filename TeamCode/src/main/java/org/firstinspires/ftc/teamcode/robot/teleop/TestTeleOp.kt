@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.robot.teleop
 
+import com.acmerobotics.roadrunner.control.PIDCoefficients
 import com.acmerobotics.roadrunner.geometry.Pose2d
 import com.acmerobotics.roadrunner.geometry.Vector2d
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
@@ -8,6 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime
 import org.firstinspires.ftc.teamcode.Robot
 import org.firstinspires.ftc.teamcode.bbopmode.BBLinearOpMode
 import org.firstinspires.ftc.teamcode.bbopmode.get
+import org.firstinspires.ftc.teamcode.drive.DriveConstants
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive
 import org.firstinspires.ftc.teamcode.modules.IntakeModule
 import org.firstinspires.ftc.teamcode.modules.MotorThrowerModule
@@ -71,10 +73,13 @@ class TeleOpEndGame : BBLinearOpMode(){
                     if (gamepad1.b) {
                         get<WobbleGoalModule>().move_endgame()
                     }
+                    if(gamepad1.dpad_down){
+                        get<WobbleGoalModule>().move_down()
+                    }
 
                     when {
                         gamepad2.x -> {
-                            get<MotorThrowerModule>().setPower(0.75)
+                            get<MotorThrowerModule>().setPower(0.73)
                         }
                         gamepad2.y -> {
                             get<MotorThrowerModule>().setPower(0.70)
@@ -123,6 +128,10 @@ class TeleOpEndGame : BBLinearOpMode(){
                     if (gamepad1.a) {
                         drive.poseEstimate = Pose2d(0.0,0.0,0.0)
 
+                        DriveConstants.MAX_ANG_ACCEL = Math.toRadians(120.0)
+                        DriveConstants.MAX_ANG_VEL = Math.toRadians(120.0)
+                        SampleMecanumDrive.HEADING_PID = PIDCoefficients(3.0,0.0,0.0)
+
                         get<MotorThrowerModule>().setPower(.67)
 
                         val traj1 = drive.trajectoryBuilder(Pose2d(0.0,0.0))
@@ -131,7 +140,7 @@ class TeleOpEndGame : BBLinearOpMode(){
 
                         drive.followTrajectory(traj1)
 
-                        drive.turn(Math.toRadians(28.0))
+                        drive.turn(Math.toRadians(26.0))
 
                         wait(1.0)
                         get<ServoThrowerModule>().open()
@@ -147,7 +156,7 @@ class TeleOpEndGame : BBLinearOpMode(){
                         get<ServoThrowerModule>().close()
                         wait(.3)
 
-                        drive.turn(Math.toRadians(7.0))
+                        drive.turn(Math.toRadians(5.0))
                         wait(.8)
 
                         get<ServoThrowerModule>().open()
@@ -158,6 +167,12 @@ class TeleOpEndGame : BBLinearOpMode(){
 
 
                         currentMode = Mode.AUTOMATIC_CONTROL
+
+
+                        DriveConstants.MAX_ANG_ACCEL = Math.toRadians(180.0)
+                        DriveConstants.MAX_ANG_VEL = Math.toRadians(180.0)
+                        SampleMecanumDrive.HEADING_PID = PIDCoefficients(5.0 , .0,0.0)
+
                     }
                     drive.update()
 

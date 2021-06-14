@@ -23,8 +23,8 @@ class Test2Servos : BBLinearOpMode() {
 
 
     override fun runOpMode() {
-        servo1 = hardwareMap.get(Servo::class.java, "servo_test")
-        servo2 = hardwareMap.get(Servo::class.java, "servo_test2")
+        servo1 = hardwareMap.get(Servo::class.java, "wobblegoal_servo")
+        servo2 = hardwareMap.get(Servo::class.java, "wobblegoal_servo2")
 
         waitForStart()
 
@@ -37,16 +37,13 @@ class Test2Servos : BBLinearOpMode() {
 
             if (gamepad1.y) {
                 servo1.position += resolution
+                servo2.position -= resolution
             }
             if(gamepad1.a) {
                 servo1.position -= resolution
-            }
-            if(gamepad1.x){
                 servo2.position += resolution
             }
-            if(gamepad1.b){
-                servo2.position -= resolution
-            }
+
 
 
             telemetry.addData("res", resolution)
