@@ -16,9 +16,8 @@ import org.firstinspires.ftc.teamcode.modules.WobbleGoalModule
 import org.firstinspires.ftc.teamcode.vision.TensorFlowObjectDetection
 import org.opencv.core.Mat
 
-@Disabled
 @Autonomous(name = "TwoWobbleGoal")
-class TwoWobbleGoal : BBLinearOpMode(){
+class ALBASTRU_TwoWobbleGoal : BBLinearOpMode(){
 
     override val modules: Robot = Robot(setOf(WobbleGoalModule(this, inAuto = true), ServoThrowerModule(this), MotorThrowerModule(this), Recognition(this)))
 
@@ -31,15 +30,15 @@ class TwoWobbleGoal : BBLinearOpMode(){
 
         val nrRings = get<Recognition>().recognizeRings()
 
-        val startPose = Pose2d(-63.0, -43.7)
+        val startPose = Pose2d(-63.0, 43.7)
         robot.poseEstimate = startPose
 
         waitForStart()
 
         if(nrRings == Recognition.NrRings.ONE) {
             val trajectory1 = robot.trajectoryBuilder(startPose)
-                    .splineTo(Vector2d(-20.0, -52.0), Math.toRadians(0.0))
-                    .splineTo(Vector2d(27.0, -42.0), Math.toRadians(0.0))
+                    .splineTo(Vector2d(-20.0, 52.0), Math.toRadians(0.0))
+                    .splineTo(Vector2d(27.0, 36.0), Math.toRadians(0.0))
 
                     .addDisplacementMarker {
                         get<WobbleGoalModule>().move_vertically()
@@ -50,23 +49,23 @@ class TwoWobbleGoal : BBLinearOpMode(){
                     }
                     .build()
 
-            val trajectory2 = robot.trajectoryBuilder(Pose2d(15.0, -42.0, 0.0))
-                    .lineTo(Vector2d(-4.0, -36.0))
+            val trajectory2 = robot.trajectoryBuilder(Pose2d(15.0, 36.0, 0.0))
+                    .lineTo(Vector2d(-4.0, 36.0))
                     .build()
 
-            val trajectory3 = robot.trajectoryBuilder(Pose2d(-4.0, -36.0, Math.toRadians(180.0)))
-                    .lineTo(Vector2d(-4.0, -23.7))
+            val trajectory3 = robot.trajectoryBuilder(Pose2d(-4.0, 36.0, Math.toRadians(180.0)))
+                    .lineTo(Vector2d(-4.0, 23.7))
                     .build()
 
-            val trajectory4 = robot.trajectoryBuilder(Pose2d(-3.0, -23.7, Math.toRadians(180.0)))
-                    .lineTo(Vector2d(-33.9, -23.7))
+            val trajectory4 = robot.trajectoryBuilder(Pose2d(-3.0, 23.7, Math.toRadians(180.0)))
+                    .lineTo(Vector2d(-33.9, 23.7))
                     .build()
 
-            val trajectory5 = robot.trajectoryBuilder(Pose2d(-33.9, -23.7, Math.toRadians(0.0)))
-                    .splineTo(Vector2d(18.0, -41.0), 0.00)
+            val trajectory5 = robot.trajectoryBuilder(Pose2d(-33.9, 23.7, Math.toRadians(0.0)))
+                    .splineTo(Vector2d(18.0, 41.0), 0.00)
                     .build()
 
-            val trajectory6 = robot.trajectoryBuilder(Pose2d(18.0, -41.0, Math.toRadians(-30.0)))
+            val trajectory6 = robot.trajectoryBuilder(Pose2d(18.0, 41.0, Math.toRadians(-30.0)))
                     .back(5.0)
                     .build()
 
@@ -100,7 +99,7 @@ class TwoWobbleGoal : BBLinearOpMode(){
             wait(.1)
 
             robot.followTrajectory(trajectory5)
-            robot.turn(-Math.toRadians(30.0))
+            robot.turn( Math.toRadians(30.0))
             get<WobbleGoalModule>().move_close()
             wait(1.0)
             robot.followTrajectory(trajectory6)
