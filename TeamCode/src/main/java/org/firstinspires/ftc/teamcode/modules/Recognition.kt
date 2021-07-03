@@ -39,21 +39,24 @@ class Recognition(override val opMode: OpMode) : RobotModule {
         val tfodMonitorViewId: Int = hardwareMap!!.appContext.resources.getIdentifier(
                 "tfodMonitorViewId", "id", hardwareMap!!.appContext.packageName)
         val tfodParameters = TFObjectDetector.Parameters(tfodMonitorViewId)
-        tfodParameters.minResultConfidence = 0.71f //0.83
+        tfodParameters.minResultConfidence = 0.80f //0.83
+        tfodParameters.minimumConfidence
 
 
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia)
         tfod!!.loadModelFromAsset(TensorFlowObjectDetection.TFOD_MODEL_ASSET, TensorFlowObjectDetection.LABEL_FIRST_ELEMENT, TensorFlowObjectDetection.LABEL_SECOND_ELEMENT)
         //tfod.setClippingMargins(200, 0, 250, 950);
         //tfod.setClippingMargins(200, 0, 250, 950);
-        tfod!!.setZoom(1.5, 1.777)
+        tfod!!.setZoom(1.55, 1.777)
     }
 
     fun recognizeRings(): NrRings {
 
         tfod?.activate()
+
         CameraDevice.getInstance().setFlashTorchMode(true)
         CameraDevice.getInstance().setFlashTorchMode(false)
+
 
         var foundRings = false
         var ringFound = ""

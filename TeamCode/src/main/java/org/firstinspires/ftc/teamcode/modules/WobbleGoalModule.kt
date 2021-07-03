@@ -107,6 +107,12 @@ class WobbleGoalModule(override val opMode: OpMode,val inAuto: Boolean) : RobotM
         }
     }
 
+    fun move_auto(){
+        wobblegoal_isUp = false
+        wobblegoal.position = 0.34
+        wobblegoal2.position = 0.646
+    }
+
     companion object{
         val wobble1_init = 0.912
         val wobble1_up = 0.6144
