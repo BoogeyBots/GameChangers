@@ -8,22 +8,28 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.DcMotor
 import org.firstinspires.ftc.teamcode.Mecanum
+import org.firstinspires.ftc.teamcode.Robot
+import org.firstinspires.ftc.teamcode.bbopmode.BBLinearOpMode
+import org.firstinspires.ftc.teamcode.modules.TestModule
 import org.firstinspires.ftc.teamcode.util.PoseStorage
 import kotlin.math.abs
 
 
 @TeleOp(group = "drive")
-open class AutoTeleOp : LinearOpMode() {
+open class AutoTeleOp : BBLinearOpMode() {
 
     enum class ROBOTMODE {
         CONTROLLED,
         AUTO
     }
 
+    override val modules = Robot(setOf(TestModule(this)))
+
     private var robotMode = ROBOTMODE.CONTROLLED
 
     override fun runOpMode() {
         val robot = Mecanum(hardwareMap)
+
         telemetry = MultipleTelemetry(telemetry, FtcDashboard.getInstance().telemetry)
 
         robot.poseEstimate = Pose2d(0.0,0.0,0.0)
@@ -33,21 +39,23 @@ open class AutoTeleOp : LinearOpMode() {
         robot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER)
 
         while (!isStopRequested) {
-            driveRobot(robot)
+            driveRobot(robot, false)
         }
 
         // Store the last position of the robot during teleop
         PoseStorage.currentPose = robot.poseEstimate
     }
-    fun driveRobot(robot: Mecanum){
-        if(gamepad1.a){
-            robotMode = ROBOTMODE.AUTO
+    fun driveRobot(robot: Mecanum, noMode: Boolean){
+        if(!noMode) {
+            if (gamepad1.a) {
+                robotMode = ROBOTMODE.AUTO
+            } else if (gamepad1.b) {
+                robotMode = ROBOTMODE.CONTROLLED
+            }
         }
-
-        else if(gamepad1.b){
+        else {
             robotMode = ROBOTMODE.CONTROLLED
         }
-
         if(robotMode == ROBOTMODE.CONTROLLED){
             robot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER)
             val baseVel = Pose2d(
@@ -86,7 +94,7 @@ open class AutoTeleOp : LinearOpMode() {
             robot.setMode(DcMotor.RunMode.RUN_USING_ENCODER)
             robot.followTrajectory(
                     robot.trajectoryBuilder(robot.poseEstimate)
-                    .splineTo(Vector2d(0.0,0.0), 0.0)
+                    .lineTo(Vector2d(0.0,0.0))
                     .build())
             robotMode = ROBOTMODE.CONTROLLED
         }

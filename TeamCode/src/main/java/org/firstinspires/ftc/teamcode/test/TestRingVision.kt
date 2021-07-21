@@ -1,13 +1,11 @@
-package org.firstinspires.ftc.teamcode.test
+package com.example.ftclibexamples.VisionSample
 
 import com.arcrobotics.ftclib.vision.UGContourRingPipeline
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName
 import org.openftc.easyopencv.*
 
-@TeleOp()
-class UGContourRingPipelineKtExample: LinearOpMode() {
+class UGContourRingPipelineKtExample : LinearOpMode() {
     companion object {
         val CAMERA_WIDTH = 320 // width  of wanted camera resolution
         val CAMERA_HEIGHT = 240 // height of wanted camera resolution
@@ -21,13 +19,23 @@ class UGContourRingPipelineKtExample: LinearOpMode() {
     }
 
     private lateinit var pipeline: UGContourRingPipeline
-    private lateinit var camera: OpenCvCamera
+    private var camera: OpenCvCamera = if (USING_WEBCAM)
+        configureWebCam()
+    else
+        configurePhoneCamera()
 
-    private var cameraMonitorViewId: Int = 0
+    private val cameraMonitorViewId: Int = hardwareMap
+            .appContext
+            .resources
+            .getIdentifier(
+                    "cameraMonitorViewId",
+                    "id",
+                    hardwareMap.appContext.packageName,
+            )
 
     private fun configurePhoneCamera(): OpenCvInternalCamera = OpenCvCameraFactory.getInstance()
             .createInternalCamera(
-                    OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId
+                    OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId,
             )
 
     private fun configureWebCam(): OpenCvWebcam = OpenCvCameraFactory.getInstance().createWebcam(
@@ -35,20 +43,10 @@ class UGContourRingPipelineKtExample: LinearOpMode() {
                     WebcamName::class.java,
                     WEBCAM_NAME
             ),
-            cameraMonitorViewId
+            cameraMonitorViewId,
     )
 
     override fun runOpMode() {
-        cameraMonitorViewId = hardwareMap
-                .appContext
-                .resources
-                .getIdentifier(
-                        "cameraMonitorViewId",
-                        "id",
-                        hardwareMap.appContext.packageName
-                )
-        camera = if (USING_WEBCAM) configureWebCam() else configurePhoneCamera()
-
         camera.setPipeline(UGContourRingPipeline(telemetry, DEBUG).apply { pipeline = this })
 
         UGContourRingPipeline.Config.CAMERA_WIDTH = CAMERA_WIDTH
@@ -59,7 +57,7 @@ class UGContourRingPipelineKtExample: LinearOpMode() {
             camera.startStreaming(
                     CAMERA_WIDTH,
                     CAMERA_HEIGHT,
-                    OpenCvCameraRotation.UPRIGHT
+                    OpenCvCameraRotation.SIDEWAYS_LEFT,
             )
         }
 

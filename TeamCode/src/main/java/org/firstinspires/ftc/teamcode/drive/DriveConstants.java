@@ -1,11 +1,9 @@
-    package org.firstinspires.ftc.teamcode.drive;
+package org.firstinspires.ftc.teamcode.drive;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.roadrunner.control.PIDCoefficients;
-import com.acmerobotics.roadrunner.trajectory.constraints.DriveConstraints;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
-    /*
+/*
  * Constants shared between multiple drive types.
  *
  * TODO: Tune or adjust the following constants to fit your robot. Note that the non-final
@@ -30,12 +28,11 @@ public class DriveConstants {
      * Set this flag to false if drive encoders are not present and an alternative localization
      * method is in use (e.g., tracking wheels).
      *
-     * If using the built-in motor velocity PID, update
-     * MOTOR_VELO_PID with the tuned coefficients from DriveVelocityPIDTuner.
-     * Set the value of MOTOR_VELO_PID to `new PIDCoefficients(kP, kI, kD);`
+     * If using the built-in motor velocity PID, update MOTOR_VELO_PID with the tuned coefficients
+     * from DriveVelocityPIDTuner.
      */
     public static final boolean RUN_USING_ENCODER = false;
-    public static final PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(30, 0, 10, getMotorVelocityF(MAX_RPM / 60 * TICKS_PER_REV)); // d era 7; eventual kD 8-12, kP 30-40
+    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(0, 0, 0, getMotorVelocityF(MAX_RPM / 60 * TICKS_PER_REV));
 
     /*
      * These are physical constants that can be determined from your robot (including the track
@@ -45,9 +42,9 @@ public class DriveConstants {
      * angular distances although most angular parameters are wrapped in Math.toRadians() for
      * convenience. Make sure to exclude any gear ratio included in MOTOR_CONFIG from GEAR_RATIO.
      */
-    public static double WHEEL_RADIUS = 2; // in
-    public static double GEAR_RATIO = 0.5; // output (wheel) speed / input (motor) speed
-    public static double TRACK_WIDTH = 15.25 ; // sau 15.2
+    public static double WHEEL_RADIUS = 1.662; //2.0922444 in
+    public static double GEAR_RATIO = 1; // output (wheel) speed / input (motor) speed
+    public static double TRACK_WIDTH = 40.0; // in
 
     /*
      * These are the feedforward parameters used to model the drive motor behavior. If you are using
@@ -55,9 +52,9 @@ public class DriveConstants {
      * motor encoders or have elected not to use them for velocity control, these values should be
      * empirically tuned.
      */
-    public static double kV = 1.0 / 46;
+    public static double kV = 0.0215; //0.02278 / rpmToVelocity(MAX_RPM)
     public static double kA = 0.002;
-    public static double kStatic = 0.0022;
+    public static double kStatic = 0.08;
 
     /*
      * These values are used to generate the trajectories for you robot. To ensure proper operation,
@@ -67,11 +64,10 @@ public class DriveConstants {
      * acceleration values are required, and the jerk values are optional (setting a jerk of 0.0
      * forces acceleration-limited profiling). All distance units are inches.
      */
-    public static DriveConstraints BASE_CONSTRAINTS = new DriveConstraints(
-            46.0, 46.0, 0.0,
-            Math.toRadians(180.0), Math.toRadians(180.0), 0.0
-    );
-
+    public static double MAX_VEL = 40;
+    public static double MAX_ACCEL = 40;
+    public static double MAX_ANG_VEL = Math.toRadians(180);
+    public static double MAX_ANG_ACCEL = Math.toRadians(180);
 
     public static double encoderTicksToInches(double ticks) {
         return WHEEL_RADIUS * 2 * Math.PI * GEAR_RATIO * ticks / TICKS_PER_REV;

@@ -7,6 +7,7 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.control.PIDFController;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -28,6 +29,7 @@ import org.firstinspires.ftc.teamcode.util.PoseStorage;
  * want that to interfere with our graph so we just directly update localizer instead
  */
 @Config
+@Disabled
 @TeleOp(group = "advanced")
 public class TeleOpAlignWithPoint extends LinearOpMode {
 
@@ -118,7 +120,7 @@ public class TeleOpAlignWithPoint extends LinearOpMode {
                     // Obtain the target angle for feedback and derivative for feedforward
                     double theta = difference.angle();
 
-                    // Not technically omega because its power. This is the derivative of atan2
+                    // Not technically omega because its twoMotorsPower. This is the derivative of atan2
                     double thetaFF = -fieldFrameInput.rotated(-Math.PI / 2).dot(difference) / (difference.norm() * difference.norm());
 
                     // Set the target heading for the heading controller to our desired angle

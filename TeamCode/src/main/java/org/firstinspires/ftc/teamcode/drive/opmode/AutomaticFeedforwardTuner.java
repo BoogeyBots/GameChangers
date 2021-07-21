@@ -25,10 +25,10 @@ import static org.firstinspires.ftc.teamcode.drive.DriveConstants.rpmToVelocity;
 /*
  * Op mode for computing kV, kStatic, and kA from various drive routines. For the curious, here's an
  * outline of the procedure:
- *   1. Slowly ramp the motor power and record encoder values along the way.
- *   2. Run a linear regression on the encoder velocity vs. motor power plot to obtain a slope (kV)
+ *   1. Slowly ramp the motor twoMotorsPower and record encoder values along the way.
+ *   2. Run a linear regression on the encoder velocity vs. motor twoMotorsPower plot to obtain a slope (kV)
  *      and an optional intercept (kStatic).
- *   3. Accelerate the robot (apply constant power) and record the encoder counts.
+ *   3. Accelerate the robot (apply constant twoMotorsPower) and record the encoder counts.
  *   4. Adjust the encoder data based on the velocity tuning data and find kA with another linear
  *      regression.
  */
@@ -36,8 +36,8 @@ import static org.firstinspires.ftc.teamcode.drive.DriveConstants.rpmToVelocity;
 @Config
 @Autonomous(group = "drive")
 public class AutomaticFeedforwardTuner extends LinearOpMode {
-    public static final double MAX_POWER = 0.7;
-    public static final double DISTANCE = 100; // in
+    public static double MAX_POWER = 0.7;
+    public static double DISTANCE = 100; // in
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -61,14 +61,14 @@ public class AutomaticFeedforwardTuner extends LinearOpMode {
 
         telemetry.clearAll();
         telemetry.addLine("Would you like to fit kStatic?");
-        telemetry.addLine("Press (A) for yes, (B) for no");
+        telemetry.addLine("Press (Y/Δ) for yes, (B/O) for no");
         telemetry.update();
 
         boolean fitIntercept = false;
         while (!isStopRequested()) {
-            if (gamepad1.a) {
+            if (gamepad1.y) {
                 fitIntercept = true;
-                while (!isStopRequested() && gamepad1.a) {
+                while (!isStopRequested() && gamepad1.y) {
                     idle();
                 }
                 break;
@@ -84,13 +84,13 @@ public class AutomaticFeedforwardTuner extends LinearOpMode {
         telemetry.clearAll();
         telemetry.addLine(Misc.formatInvariant(
                 "Place your robot on the field with at least %.2f in of room in front", DISTANCE));
-        telemetry.addLine("Press (A) to begin");
+        telemetry.addLine("Press (Y/Δ) to begin");
         telemetry.update();
 
-        while (!isStopRequested() && !gamepad1.a) {
+        while (!isStopRequested() && !gamepad1.y) {
             idle();
         }
-        while (!isStopRequested() && gamepad1.a) {
+        while (!isStopRequested() && gamepad1.y) {
             idle();
         }
 
@@ -142,14 +142,14 @@ public class AutomaticFeedforwardTuner extends LinearOpMode {
                     rampResult.kStatic, rampResult.rSquare));
         }
         telemetry.addLine("Would you like to fit kA?");
-        telemetry.addLine("Press (A) for yes, (B) for no");
+        telemetry.addLine("Press (Y/Δ) for yes, (B/O) for no");
         telemetry.update();
 
         boolean fitAccelFF = false;
         while (!isStopRequested()) {
-            if (gamepad1.a) {
+            if (gamepad1.y) {
                 fitAccelFF = true;
-                while (!isStopRequested() && gamepad1.a) {
+                while (!isStopRequested() && gamepad1.y) {
                     idle();
                 }
                 break;
@@ -165,13 +165,13 @@ public class AutomaticFeedforwardTuner extends LinearOpMode {
         if (fitAccelFF) {
             telemetry.clearAll();
             telemetry.addLine("Place the robot back in its starting position");
-            telemetry.addLine("Press (A) to continue");
+            telemetry.addLine("Press (Y/Δ) to continue");
             telemetry.update();
 
-            while (!isStopRequested() && !gamepad1.a) {
+            while (!isStopRequested() && !gamepad1.y) {
                 idle();
             }
-            while (!isStopRequested() && gamepad1.a) {
+            while (!isStopRequested() && gamepad1.y) {
                 idle();
             }
 
@@ -209,7 +209,7 @@ public class AutomaticFeedforwardTuner extends LinearOpMode {
                             "DriveAccelRegression-%d.csv", System.currentTimeMillis())));
 
             telemetry.clearAll();
-            telemetry.addLine("Constant power test complete");
+            telemetry.addLine("Constant twoMotorsPower test complete");
             telemetry.addLine(Misc.formatInvariant("kA = %.5f (R^2 = %.2f)",
                     accelResult.kA, accelResult.rSquare));
             telemetry.update();

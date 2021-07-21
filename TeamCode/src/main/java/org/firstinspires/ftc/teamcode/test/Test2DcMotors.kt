@@ -8,14 +8,14 @@ import org.firstinspires.ftc.teamcode.modules.TestModule
 
 @TeleOp(name = "Test 2 DcMotors")
 class Test2DcMotors : BBOpMode() {
-    override val robot: Robot = Robot(setOf(TestModule(this)))
+    override val modules: Robot = Robot(setOf(TestModule(this)))
     lateinit var motor: DcMotor
     lateinit var motor2: DcMotor
     var power : Double = 0.0
 
     override fun init() {
-        motor = hardwareMap.get(DcMotor::class.java, "leftRear")
-        motor2 = hardwareMap.get(DcMotor::class.java, "leftFront")
+        motor = hardwareMap.get(DcMotor::class.java, "intake")
+        motor2 = hardwareMap.get(DcMotor::class.java, "intake2")
         motor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
     }
 

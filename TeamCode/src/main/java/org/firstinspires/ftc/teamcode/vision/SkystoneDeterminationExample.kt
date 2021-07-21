@@ -1,14 +1,3 @@
-package org.firstinspires.ftc.teamcode.drive.opmode
-
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp
-import com.acmerobotics.dashboard.config.Config
-import org.firstinspires.ftc.robotcore.internal.camera.WebcamExample
-import org.opencv.core.*
-import org.opencv.imgproc.Imgproc
-import org.openftc.easyopencv.*
-
-
 /*
  * Copyright (c) 2020 OpenFTC Team
  *
@@ -29,19 +18,27 @@ import org.openftc.easyopencv.*
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package org.firstinspires.ftc.teamcode.vision
 
-
+import com.qualcomm.robotcore.eventloop.opmode.Disabled
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp
+import org.opencv.core.*
+import org.opencv.imgproc.Imgproc
+import org.openftc.easyopencv.*
+import org.openftc.easyopencv.OpenCvCamera.AsyncCameraOpenListener
+import kotlin.math.max
 
 /*
  * This sample demonstrates a basic (but battle-tested and essentially
  * 100% accurate) method of detecting the skystone when lined up with
  * the sample regions over the first 3 stones.
  */
-@Config
-@TeleOp(group = "drive")
-class SkystoneTest : LinearOpMode() {
-    private var phoneCam: OpenCvInternalCamera? = null
-    private var pipeline: SkystoneDeterminationPipeline? = null
+@Disabled
+@TeleOp
+class SkystoneDeterminationExample : LinearOpMode() {
+    var phoneCam: OpenCvInternalCamera? = null
+    var pipeline: SkystoneDeterminationPipeline? = null
     override fun runOpMode() {
         /**
          * NOTE: Many comments have been omitted from this sample for the
@@ -58,7 +55,7 @@ class SkystoneTest : LinearOpMode() {
         // out when the RC activity is in portrait. We do our actual image processing assuming
         // landscape orientation, though.
         phoneCam?.setViewportRenderingPolicy(OpenCvCamera.ViewportRenderingPolicy.OPTIMIZE_VIEW)
-        phoneCam?.openCameraDeviceAsync { phoneCam?.startStreaming(320, 240, OpenCvCameraRotation.SIDEWAYS_LEFT) }
+        phoneCam?.openCameraDeviceAsync(AsyncCameraOpenListener { phoneCam?.startStreaming(320, 240, OpenCvCameraRotation.SIDEWAYS_LEFT) })
         waitForStart()
         while (opModeIsActive()) {
             telemetry.addData("Analysis", pipeline!!.analysis)
@@ -126,16 +123,17 @@ class SkystoneTest : LinearOpMode() {
         var avg3 = 0
 
         /*
-         * Call this from the OpMode thread to obtain the latest analysis
-         */
+           * Call this from the OpMode thread to obtain the latest analysis
+           */
         // Volatile since accessed by OpMode thread w/o synchronization
         @Volatile
         var analysis = SkystonePosition.LEFT
+            private set
 
         /*
-         * This function takes the RGB frame, converts to YCrCb,
-         * and extracts the Cb channel to the 'Cb' variable
-         */
+           * This function takes the RGB frame, converts to YCrCb,
+           * and extracts the Cb channel to the 'Cb' variable
+           */
         fun inputToCb(input: Mat?) {
             Imgproc.cvtColor(input, YCrCb, Imgproc.COLOR_RGB2YCrCb)
             Core.extractChannel(YCrCb, Cb, 2)
@@ -155,7 +153,7 @@ class SkystoneTest : LinearOpMode() {
 
             /*
              * Submats are a persistent reference to a region of the parent
-             * buffer. Any changes to the child affect the parent, and the
+             * buffer. Any changes to the child affect the parent, and the.
              * reverse also holds true.
              */
             region1_Cb = Cb.submat(Rect(region1_pointA, region1_pointB))
@@ -210,16 +208,14 @@ class SkystoneTest : LinearOpMode() {
              * we need is at index 0. We could have also taken the average
              * pixel value of the 3-channel image, and referenced the value
              * at index 2 here.
-             */
-            avg1 = Core.mean(region1_Cb).`val`[0].toInt()
+             */avg1 = Core.mean(region1_Cb).`val`[0].toInt()
             avg2 = Core.mean(region2_Cb).`val`[0].toInt()
             avg3 = Core.mean(region3_Cb).`val`[0].toInt()
 
             /*
              * Draw a rectangle showing sample region 1 on the screen.
              * Simply a visual aid. Serves no functional purpose.
-             */
-            Imgproc.rectangle(
+             */Imgproc.rectangle(
                     input,  // Buffer to draw on
                     region1_pointA,  // First point which defines the rectangle
                     region1_pointB,  // Second point which defines the rectangle
@@ -229,8 +225,7 @@ class SkystoneTest : LinearOpMode() {
             /*
              * Draw a rectangle showing sample region 2 on the screen.
              * Simply a visual aid. Serves no functional purpose.
-             */
-            Imgproc.rectangle(
+             */Imgproc.rectangle(
                     input,  // Buffer to draw on
                     region2_pointA,  // First point which defines the rectangle
                     region2_pointB,  // Second point which defines the rectangle
@@ -240,8 +235,7 @@ class SkystoneTest : LinearOpMode() {
             /*
              * Draw a rectangle showing sample region 3 on the screen.
              * Simply a visual aid. Serves no functional purpose.
-             */
-            Imgproc.rectangle(
+             */Imgproc.rectangle(
                     input,  // Buffer to draw on
                     region3_pointA,  // First point which defines the rectangle
                     region3_pointB,  // Second point which defines the rectangle
@@ -252,84 +246,70 @@ class SkystoneTest : LinearOpMode() {
             /*
              * Find the max of the 3 averages
              */
-            val maxOneTwo = Math.max(avg1, avg2)
-            val max = Math.max(maxOneTwo, avg3)
+            val maxOneTwo = max(avg1, avg2)
+            val max = max(maxOneTwo, avg3)
 
             /*
              * Now that we found the max, we actually need to go and
              * figure out which sample region that value was from
-             */
-            when (max) {
-                avg1 // Was it from region 1?
-                -> {
-                    analysis = SkystonePosition.LEFT // Record our analysis
-
-                    /*
-                     * Draw a solid rectangle on top of the chosen region.
-                     * Simply a visual aid. Serves no functional purpose.
-                     */
-                    Imgproc.rectangle(
-                            input,  // Buffer to draw on
-                            region1_pointA,  // First point which defines the rectangle
-                            region1_pointB,  // Second point which defines the rectangle
-                            GREEN,  // The color the rectangle is drawn in
-                            -1) // Negative thickness means solid fill
-                }
-                avg2 // Was it from region 2?
-                -> {
-                    analysis = SkystonePosition.CENTER // Record our analysis
-
-                    /*
-                     * Draw a solid rectangle on top of the chosen region.
-                     * Simply a visual aid. Serves no functional purpose.
-                     */
-                    Imgproc.rectangle(
-                            input,  // Buffer to draw on
-                            region2_pointA,  // First point which defines the rectangle
-                            region2_pointB,  // Second point which defines the rectangle
-                            GREEN,  // The color the rectangle is drawn in
-                            -1) // Negative thickness means solid fill
-                }
-                avg3 // Was it from region 3?
-                -> {
-                    analysis = SkystonePosition.RIGHT // Record our analysis
-
-                    /*
-                     * Draw a solid rectangle on top of the chosen region.
-                     * Simply a visual aid. Serves no functional purpose.
-                     */Imgproc.rectangle(
-                            input,  // Buffer to draw on
-                            region3_pointA,  // First point which defines the rectangle
-                            region3_pointB,  // Second point which defines the rectangle
-                            GREEN,  // The color the rectangle is drawn in
-                            -1) // Negative thickness means solid fill
-                }
+             */if (max == avg1) // Was it from region 1?
+            {
+                analysis = SkystonePosition.LEFT // Record our analysis
 
                 /*
-                 * Render the 'input' buffer to the viewport. But note this is not
-                 * simply rendering the raw camera feed, because we called functions
-                 * to add some annotations to this buffer earlier up.
-                 */
+                 * Draw a solid rectangle on top of the chosen region.
+                 * Simply a visual aid. Serves no functional purpose.
+                 */Imgproc.rectangle(
+                    input,  // Buffer to draw on
+                    region1_pointA,  // First point which defines the rectangle
+                    region1_pointB,  // Second point which defines the rectangle
+                    GREEN,  // The color the rectangle is drawn in
+                    -1) // Negative thickness means solid fill
+            } else if (max == avg2) // Was it from region 2?
+            {
+                analysis = SkystonePosition.CENTER // Record our analysis
+
+                /*
+                 * Draw a solid rectangle on top of the chosen region.
+                 * Simply a visual aid. Serves no functional purpose.
+                 */Imgproc.rectangle(
+                    input,  // Buffer to draw on
+                    region2_pointA,  // First point which defines the rectangle
+                    region2_pointB,  // Second point which defines the rectangle
+                    GREEN,  // The color the rectangle is drawn in
+                    -1) // Negative thickness means solid fill
+            } else if (max == avg3) // Was it from region 3?
+            {
+                analysis = SkystonePosition.RIGHT // Record our analysis
+
+                /*
+                 * Draw a solid rectangle on top of the chosen region.
+                 * Simply a visual aid. Serves no functional purpose.
+                 */Imgproc.rectangle(
+                    input,  // Buffer to draw on
+                    region3_pointA,  // First point which defines the rectangle
+                    region3_pointB,  // Second point which defines the rectangle
+                    GREEN,  // The color the rectangle is drawn in
+                    -1) // Negative thickness means solid fill
             }
 
             /*
              * Render the 'input' buffer to the viewport. But note this is not
              * simply rendering the raw camera feed, because we called functions
              * to add some annotations to this buffer earlier up.
-             */
-            return input
+             */return input
         }
 
         companion object {
             /*
-             * Some color constants
-             */
+         * Some color constants
+         */
             val BLUE = Scalar(0.0, 0.0, 255.0)
             val GREEN = Scalar(0.0, 255.0, 0.0)
 
             /*
-             * The core values which define the location and size of the sample regions
-             */
+         * The core values which define the location and size of the sample regions
+         */
             val REGION1_TOPLEFT_ANCHOR_POINT = Point(109.0, 98.0)
             val REGION2_TOPLEFT_ANCHOR_POINT = Point(181.0, 98.0)
             val REGION3_TOPLEFT_ANCHOR_POINT = Point(253.0, 98.0)
