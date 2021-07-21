@@ -28,10 +28,19 @@ class TestTeleOp : AutoTeleOp() {
                 modules.get<WobbleGoalModule>().move_goal(0.0f)
 
             }
-            */
+
              if(gamepad1.dpad_down){
                  modules.get<WobbleGoalModule>().move()
              }
+
+             */
+            if(gamepad1.left_trigger > 0.0){
+                modules.get<WobbleGoalModule>().move_continuos(gamepad1.left_trigger)
+            }
+            else if(gamepad1.right_trigger > 0.0){
+                modules.get<WobbleGoalModule>().move_continuos(-gamepad1.right_trigger)
+            }
+
             if(gamepad1.right_bumper){
                 modules.get<ServoWobble>().grab()
             }

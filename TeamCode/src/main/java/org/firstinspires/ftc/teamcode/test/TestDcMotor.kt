@@ -20,6 +20,8 @@ class TestDcMotor : BBOpMode(){
     }
 
     override fun loop() {
-        motor.power = -gamepad1.left_stick_y.toDouble() 
+        motor.power = -gamepad1.left_stick_y.toDouble()
+        telemetry.addData("Position", motor.currentPosition)
+        telemetry.update()
     }
 }

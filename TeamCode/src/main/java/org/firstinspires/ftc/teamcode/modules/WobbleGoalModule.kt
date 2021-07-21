@@ -25,9 +25,16 @@ class WobbleGoalModule(override val opMode: OpMode) : RobotModule {
         wobblegoal.setVelocityPIDFCoefficients(8.0, 0.85, 6.0, 0.0)
     }
 
-    fun move_goal(i: Float){
+    fun move_continuos(i: Float){
         wobblegoal.power = i.toDouble() / 4
+        if(i>0) {
+            wobblegoal.targetPosition++
+        }
+        else{
+            wobblegoal.targetPosition--
+        }
     }
+
 
     fun move() {
         if(time_elapsed.seconds() > 1.0) {
