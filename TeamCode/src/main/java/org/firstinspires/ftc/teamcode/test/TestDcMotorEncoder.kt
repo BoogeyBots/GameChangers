@@ -24,11 +24,26 @@ class TestDcMotorEncoder : BBOpMode(){
         // ORIGINAL PIDF: p=9.999847 i=2.999954 d=0.000000 f=0.000000
         motor.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
         motor.mode = DcMotor.RunMode.RUN_TO_POSITION
-        motor.setVelocityPIDFCoefficients(0.0, 0.0, 0.0, 0.0)
+        motor.setVelocityPIDFCoefficients(1.0, 0.0, 0.0, 0.0)
         //motor.targetPosition = (0.05 * COUNTS_PER_REV).toInt()
     }
 
     override fun loop() {
+
+        while (opModeIsActive()) {
+            val oldTarget = motor.targetPosition
+            val newTarget = oldTarget - gamepad1.left_trigger * 2.0 + gamepad1.right_trigger * 2.0
+
+            motor.targetPosition = (when {
+                newTarget <= 0.0 -> 0
+                newTarget >= 1000.0 -> 1000
+                else -> newTarget.toInt()
+            })
+
+            telemetry.addData("TARGET POS", motor.targetPosition)
+            telemetry.update()
+        }
+
         motor.power = gamepad1.left_stick_x.toDouble()
         telemetry.addData("Pozitie Motor", motor.currentPosition)
         telemetry.update()

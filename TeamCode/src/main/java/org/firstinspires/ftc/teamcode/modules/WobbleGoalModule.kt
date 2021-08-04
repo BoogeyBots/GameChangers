@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.modules
+    terdpackage org.firstinspires.ftc.teamcode.modules
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode
 import com.qualcomm.robotcore.hardware.HardwareDevice
@@ -114,9 +114,9 @@ class WobbleGoalModule(override val opMode: OpMode,val inAuto: Boolean) : RobotM
     }
 
     companion object{
-        val wobble1_init = 0.912
-        val wobble1_up = 0.6144
-        val wobble1_down = 0.277
+        val wobble1_init = 0.912 // 0.00 
+        val wobble1_up = 0.6144 // 0.40
+        val wobble1_down = 0.277 // 0.89
         val wobble1_endgame = 0.514
 
         val wobble2_init = 0.0794
