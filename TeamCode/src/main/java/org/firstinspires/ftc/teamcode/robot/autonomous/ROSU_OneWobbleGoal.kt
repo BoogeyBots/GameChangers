@@ -134,13 +134,13 @@ class ROSU_OneWobbleGoal : BBLinearOpMode(){
             val trajectory2 = robot.trajectoryBuilder(Pose2d(52.0, -60.5, 0.0))
                     .lineTo(Vector2d(-4.0, -36.0))
                     .build()
-
+/*
             val trajectory3 = robot.trajectoryBuilder(trajectory2.end(), Math.toRadians(180.0))
                     .lineTo(Vector2d(10 .0, -50.0))
                     ț?val trajectory3 = robot.trajectoryBuilder(Pose2d(-4.0, -36.0, Math.toRadians(180.0)))
             .lineTo(Vector2d(6.0, -12.0))
                     .build()?mINJ.UBGM V, lk ?IBUYNHJXCx
-
+*/
             robot.followTrajectory(trajectory1)
             robot.followTrajectory(trajectory2)
             robot.turn(Math.toRadians(180.0))
@@ -156,7 +156,7 @@ class ROSU_OneWobbleGoal : BBLinearOpMode(){
 
             get<MotorThrowerModule>().setPower(0.0)
 
-            robot.followTrajectory(trajectory3)
+  //          robot.followTrajectory(trajectory3)
         }
 
 
