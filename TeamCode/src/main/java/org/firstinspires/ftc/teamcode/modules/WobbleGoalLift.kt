@@ -9,32 +9,53 @@ import com.qualcomm.robotcore.util.Range
 
 class WobbleGoalLift(override val opMode: OpMode) : RobotModule {
     override var components: HashMap<String, HardwareDevice> = hashMapOf()
-    val wobblegoal get() = get<DcMotorEx>("wobblegoal")
-    var isUp: Boolean = true
-    val MOTOR_POWER = 0.25
+
+    lateinit var motor: DcMotorEx
+    val isBusy get() = motor.isBusy
+    val maxPos = 600
+    val minPos = -600
     val time_elapsed = ElapsedTime()
-    val minPos = 0
-    val maxPos = 0
-    val changePos = 0
+
+    var isUp = false
+
 
     override fun init() {
-        components["wobblegoal"] = hardwareMap!!.get(DcMotorEx::class.java, "wobblegoal")
-        wobblegoal.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
-        wobblegoal.targetPosition = 0
-        wobblegoal.power = 0.4
-        wobblegoal.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
-        wobblegoal.mode = DcMotor.RunMode.RUN_TO_POSITION
-        wobblegoal.setVelocityPIDFCoefficients(5.0, 4.0, 2.0, 0.0)
+        motor = hardwareMap!!.get(DcMotorEx::class.java, "brat")
+        motor.targetPosition = 0
+        motor.power = 0.4
+        // ORIGINAL PIDF: p=9.999847 i=2.999954 d=0.000000 f=0.000000
+        motor.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
+        motor.mode = DcMotor.RunMode.RUN_TO_POSITION
+        motor.setVelocityPIDFCoefficients(15.0, 3.0, 0.0, 0.0)
+        //motor.targetPosition = (0.05 * COUNTS_PER_REV).toInt()
     }
 
-    fun goUp(){
-        if (wobblegoal.targetPosition in (minPos) until (maxPos + 1))
-            wobblegoal.targetPosition = Range.clip(wobblegoal.targetPosition + changePos, minPos, maxPos)
-        wobblegoal.power = 0.4
+    fun goUp() {
+        motor.targetPosition = 585
     }
-    fun goDown(){
-        if (wobblegoal.targetPosition in (minPos) until (maxPos + 1))
-            wobblegoal.targetPosition = Range.clip(wobblegoal.targetPosition - changePos, minPos, maxPos)
-        wobblegoal.power = 0.4
+
+    fun goDown() {
+        motor.targetPosition = 1305
+    }
+
+    fun goMid() {
+        motor.targetPosition = 1170
+    }
+
+    fun goEndGame(){
+        motor.targetPosition = 765
+    }
+
+    fun move() {
+        if(isUp and (time_elapsed.milliseconds() > 500.0)) {
+            goDown()
+            isUp = false
+            time_elapsed.reset()
+        }
+        if(!isUp and (time_elapsed.milliseconds() > 500.0)){
+            goUp()
+            isUp = true
+            time_elapsed.reset()
+        }
     }
 }

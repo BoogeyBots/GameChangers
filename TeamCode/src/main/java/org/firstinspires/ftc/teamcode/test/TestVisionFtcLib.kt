@@ -18,7 +18,7 @@ class TestVisionFtcLib() : LinearOpMode() {
 
         UGContourRingDetector.PipelineConfiguration.HORIZON = 100
 
-        UGContourRingDetector.PipelineConfiguration.CAMERA_ORIENTATION = OpenCvCameraRotation.UPRIGHT
+        UGContourRingDetector.PipelineConfiguration.CAMERA_ORIENTATION = OpenCvCameraRotation.SIDEWAYS_RIGHT
 
         detector.init()
 

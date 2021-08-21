@@ -12,12 +12,12 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive
 import org.firstinspires.ftc.teamcode.modules.*
 
 @TeleOp()
-class TeleOpTest : BBLinearOpMode(){
-    override val modules = Robot(setOf(MotorThrowerModule(this), ServoThrowerModule(this), IntakeModule(this), WobbleGoalLift(this)))
+class TeleOpNationala : BBLinearOpMode(){
+    override val modules = Robot(setOf(MotorThrowerModule(this), ServoThrowerModule(this), IntakeModule(this), ServoWobble(this), WobbleGoalLift(this)))
 
     override fun runOpMode() {
         val drive = SampleMecanumDrive(hardwareMap)
-        
+
         var auto = false
 
         modules.modules.forEach(){
@@ -46,15 +46,16 @@ class TeleOpTest : BBLinearOpMode(){
 
             drive.update()
 
+
             if(gamepad1.right_bumper){
-                get<WobbleGoalLift>().goUp()
+                get<WobbleGoalLift>().move()
             }
             if(gamepad1.left_bumper){
-                get<WobbleGoalLift>().goDown()
+                get<ServoWobble>().move()
             }
 
             if(gamepad1.b){
-                get<WobbleGoalModule>().move_endgame()
+                get<WobbleGoalLift>().goEndGame()
             }
 
 

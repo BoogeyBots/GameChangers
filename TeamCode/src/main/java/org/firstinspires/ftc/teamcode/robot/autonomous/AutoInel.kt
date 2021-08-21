@@ -15,7 +15,7 @@ import org.opencv.core.Mat
 @Autonomous(name = "TwoWobbleGoal")
 class AutoInel : BBLinearOpMode(){
 
-    override val modules: Robot = Robot(setOf(WobbleGoalModule(this, inAuto = true), ServoThrowerModule(this), MotorThrowerModule(this), Recognition(this), IntakeModule(this)))
+    override val modules: Robot = Robot(setOf(WobbleGoalLift(this), ServoThrowerModule(this), MotorThrowerModule(this), Recognition(this), IntakeModule(this)))
 
 
     override fun runOpMode() {
@@ -37,27 +37,27 @@ class AutoInel : BBLinearOpMode(){
                     .splineTo(Vector2d(27.0, -42.0), Math.toRadians(0.0))
 
                     .addDisplacementMarker {
-                        get<WobbleGoalModule>().move_vertically()
+              //          get<WobbleGoalLift>().move()
                         wait(.3)
                     }
                     .addDisplacementMarker {
-                        get<WobbleGoalModule>().move_close()
+                //        get<WobbleGoalModule>().move_close()
                     }
                     .build()
 
             val trajectory2 = robot.trajectoryBuilder(Pose2d(15.0, -42.0, 0.0))
-                    .lineTo(Vector2d(-4.0, -36.0))
+                    .lineTo(Vector2d(-13.0, -36.0))
                     .build()
 
-            val trajectory3 = robot.trajectoryBuilder(Pose2d(-4.0, -36.0, Math.toRadians(180.0)))
+            val trajectory3 = robot.trajectoryBuilder(Pose2d(-13.0, -36.0, Math.toRadians(180.0)))
                     .lineTo(Vector2d(-15.0, -36.0))
                     .build()
 
             val trajectory4 = robot.trajectoryBuilder(Pose2d(-15.0, -36.0,Math.toRadians(180.0)))
-                    .lineTo(Vector2d(-4.0,-36.0))
+                    .lineTo(Vector2d(-13.0,-36.0))
                     .build()
 
-            val trajectory5 = robot.trajectoryBuilder(Pose2d(-4.0, -36.0, Math.toRadians(180.0)))
+            val trajectory5 = robot.trajectoryBuilder(Pose2d(-13.0, -36.0, Math.toRadians(180.0)))
                     .lineTo(Vector2d(-4.0, -23.7))
                     .build()
 
@@ -76,8 +76,8 @@ class AutoInel : BBLinearOpMode(){
 
             robot.followTrajectory(trajectory1)
             robot.followTrajectory(trajectory2)
-            robot.turn(Math.toRadians(180.0))
-            get<MotorThrowerModule>().setPower(0.75)
+            robot.turn(Math.toRadians(185.0))
+            get<MotorThrowerModule>().setPower(0.80)
             wait(0.75)
 
             for(i in 1..3){
@@ -93,7 +93,7 @@ class AutoInel : BBLinearOpMode(){
 
             robot.followTrajectory(trajectory4)
 
-            wait(.3)
+            wait(.6)
             get<IntakeModule>().stop()
 
 
@@ -106,19 +106,19 @@ class AutoInel : BBLinearOpMode(){
 
             robot.followTrajectory(trajectory5)
             robot.followTrajectory(trajectory6)
-            get<WobbleGoalModule>().wobblegoal.position = 0.3472
+            //get<WobbleGoalModule>().wobblegoal.position = 0.3472
 
             wait(0.6)
-            get<WobbleGoalModule>().move_close()
+            //get<WobbleGoalModule>().move_close()
             wait(0.7)
-            get<WobbleGoalModule>().wobblegoal.position = 0.43
+            //get<WobbleGoalModule>().wobblegoal.position = 0.43
             wait(.4)
 
             robot.turn(Math.toRadians(180.0))
             wait(.1)
 
             robot.followTrajectory(trajectory7)
-            get<WobbleGoalModule>().move_close()
+            //get<WobbleGoalModule>().move_close()
             wait(1.0)
             robot.followTrajectory(trajectory8)
 
@@ -128,11 +128,11 @@ class AutoInel : BBLinearOpMode(){
             val trajectory1 = robot.trajectoryBuilder(startPose)
                     .lineTo(Vector2d(-0.7, -62.0))
                     .addDisplacementMarker {
-                        get<WobbleGoalModule>().move_vertically()
+                        get<WobbleGoalLift>().move()
                         wait(.3)
                     }
                     .addDisplacementMarker {
-                        get<WobbleGoalModule>().move_close()
+                     //   get<WobbleGoalModule>().move_close()
                     }
                     .build()
 
@@ -180,11 +180,11 @@ class AutoInel : BBLinearOpMode(){
 
             robot.followTrajectory(trajectory3)
             robot.followTrajectory(trajectory4)
-            get<WobbleGoalModule>().wobblegoal.position = 0.3472
+            //get<WobbleGoalModule>().wobblegoal.position = 0.3472
             wait(0.5)
-            get<WobbleGoalModule>().move_close()
+            //get<WobbleGoalModule>().move_close()
             wait(0.7)
-            get<WobbleGoalModule>().wobblegoal.position = 0.43
+            //get<WobbleGoalModule>().wobblegoal.position = 0.43
             wait(.4)
 
             robot.turn(Math.toRadians(180.0))
@@ -192,7 +192,7 @@ class AutoInel : BBLinearOpMode(){
 
             robot.followTrajectory(trajectory5)
             robot.turn(Math.toRadians(-25.0))
-            get<WobbleGoalModule>().move_close()
+            //get<WobbleGoalModule>().move_close()
             wait(.5)
             robot.followTrajectory(trajectory6)
             robot.followTrajectory(trajectory7)
@@ -204,11 +204,11 @@ class AutoInel : BBLinearOpMode(){
                     .splineTo(Vector2d(50.0, -60.5), Math.toRadians(0.0))
 
                     .addDisplacementMarker {
-                        get<WobbleGoalModule>().move_vertically()
+              //          get<WobbleGoalLift>().move()
                         wait(.3)
                     }
                     .addDisplacementMarker {
-                        get<WobbleGoalModule>().move_close()
+                //        get<WobbleGoalModule>().move_close()
                     }
                     .build()
 
@@ -236,7 +236,7 @@ class AutoInel : BBLinearOpMode(){
             robot.followTrajectory(trajectory1)
             robot.followTrajectory(trajectory2)
             robot.turn(Math.toRadians(180.0))
-            get<MotorThrowerModule>().setPower(0.75)
+            //get<MotorThrowerModule>().setPower(0.75)
             wait(0.75)
 
             for(i in 1..3){
@@ -250,12 +250,12 @@ class AutoInel : BBLinearOpMode(){
 
             robot.followTrajectory(trajectory3)
             robot.followTrajectory(trajectory4)
-            get<WobbleGoalModule>().wobblegoal.position = 0.3472
+            //get<WobbleGoalModule>().wobblegoal.position = 0.3472
 
             wait(0.2)
-            get<WobbleGoalModule>().move_close()
+            //get<WobbleGoalModule>().move_close()
             wait(0.7)
-            get<WobbleGoalModule>().wobblegoal.position = 0.431
+            //get<WobbleGoalModule>().wobblegoal.position = 0.431
             wait(.4)
 
             robot.turn(Math.toRadians(180.0))
@@ -263,7 +263,7 @@ class AutoInel : BBLinearOpMode(){
 
             robot.followTrajectory(trajectory5)
             robot.turn(Math.toRadians(-30.0))
-            get<WobbleGoalModule>().move_close()
+            //get<WobbleGoalModule>().move_close()
             wait(.6)
             robot.followTrajectory(trajectory6)
             //wait(1.0)

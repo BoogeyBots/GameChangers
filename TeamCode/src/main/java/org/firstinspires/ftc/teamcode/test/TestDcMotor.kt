@@ -19,9 +19,10 @@ class TestDcMotor : BBOpMode(){
     var timex = ElapsedTime()
 
     override fun init() {
-        motor = hardwareMap.get(DcMotorEx::class.java, "brat")
+        motor = hardwareMap!!.get(DcMotorEx::class.java, "brat")
         motor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
-        //motor.mode = DcMotor.RunMode.RUN_USING_ENCODER
+        motor.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
+        motor.mode = DcMotor.RunMode.RUN_USING_ENCODER
     }
 
     override fun loop() {
@@ -29,7 +30,7 @@ class TestDcMotor : BBOpMode(){
             motorPower += 0.05
             timex.reset()
         }
-        else if(gamepad1.a and (motorPower > 0.0 && timex.seconds() > 0.1)){
+        else if(gamepad1.a and (motorPower > -1.0 && timex.seconds() > 0.1)){
             motorPower -= 0.05
             timex.reset()
         }
