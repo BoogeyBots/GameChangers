@@ -15,8 +15,7 @@ import org.opencv.core.Mat
 @Autonomous(name = "TwoWobbleGoal")
 class AutoInel : BBLinearOpMode(){
 
-    override val modules: Robot = Robot(setOf(WobbleGoalLift(this), ServoThrowerModule(this), MotorThrowerModule(this), Recognition(this), IntakeModule(this)))
-
+    override val modules: Robot = Robot(setOf(WobbleGoalLift(this), ServoThrowerModule(this), MotorThrowerModule(this), Recognition(this), IntakeModule(this), ServoWobble(this)))
 
     override fun runOpMode() {
         val robot = Mecanum(hardwareMap)
@@ -37,11 +36,11 @@ class AutoInel : BBLinearOpMode(){
                     .splineTo(Vector2d(27.0, -42.0), Math.toRadians(0.0))
 
                     .addDisplacementMarker {
-              //          get<WobbleGoalLift>().move()
+                      //  get<WobbleGoalLift>().goDown() .goUp() .goMid()
                         wait(.3)
                     }
                     .addDisplacementMarker {
-                //        get<WobbleGoalModule>().move_close()
+                     // get<ServoWobble>().ungrab() .grab()
                     }
                     .build()
 

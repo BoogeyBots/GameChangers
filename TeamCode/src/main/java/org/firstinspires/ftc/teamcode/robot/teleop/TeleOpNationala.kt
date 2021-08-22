@@ -77,9 +77,9 @@ class TeleOpNationala : BBLinearOpMode(){
                 for (i in 1..3) {
                     drive.setWeightedDrivePower(Pose2d(0.0,0.0,0.0))
                     get<ServoThrowerModule>().open()
-                    wait(0.2)
+                    wait(0.3)
                     get<ServoThrowerModule>().close()
-                    wait(0.2)
+                    wait(0.3)
                 }
             }
 

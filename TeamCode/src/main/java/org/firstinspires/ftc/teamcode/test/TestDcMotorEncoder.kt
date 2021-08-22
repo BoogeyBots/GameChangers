@@ -14,6 +14,7 @@ class TestDcMotorEncoder : BBOpMode(){
     lateinit var motor: DcMotorEx
     val isBusy get() = motor.isBusy
     val maxPos = 2500
+    val minPos = -1
 
     override fun init() {
         motor = hardwareMap.get(DcMotorEx::class.java, "brat")
@@ -45,14 +46,14 @@ class TestDcMotorEncoder : BBOpMode(){
     }
 
     fun goUp() {
-        if (motor.targetPosition in -1 until (maxPos + 1))
-            motor.targetPosition = Range.clip(motor.targetPosition + 15, -1, maxPos)
-        motor.power = 0.3
+        if (motor.targetPosition in minPos  until (maxPos + 1))
+            motor.targetPosition = Range.clip(motor.targetPosition + 15, minPos, maxPos)
+                        motor.power = 0.3
     }
     fun goDown() {
 
-        if (motor.targetPosition in -1 until (maxPos + 1))
-            motor.targetPosition = Range.clip(motor.targetPosition - 15, -1, maxPos)
+        if (motor.targetPosition in minPos until (maxPos + 1))
+            motor.targetPosition = Range.clip(motor.targetPosition - 15, minPos, maxPos)
         motor.power = 0.3
 
     }

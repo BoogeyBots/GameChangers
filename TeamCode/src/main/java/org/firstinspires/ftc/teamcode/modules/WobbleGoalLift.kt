@@ -9,11 +9,7 @@ import com.qualcomm.robotcore.util.Range
 
 class WobbleGoalLift(override val opMode: OpMode) : RobotModule {
     override var components: HashMap<String, HardwareDevice> = hashMapOf()
-
     lateinit var motor: DcMotorEx
-    val isBusy get() = motor.isBusy
-    val maxPos = 600
-    val minPos = -600
     val time_elapsed = ElapsedTime()
 
     var isUp = false
