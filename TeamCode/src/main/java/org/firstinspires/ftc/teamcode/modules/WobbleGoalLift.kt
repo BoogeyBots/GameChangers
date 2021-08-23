@@ -27,7 +27,7 @@ class WobbleGoalLift(override val opMode: OpMode) : RobotModule {
     }
 
     fun goUp() {
-        motor.targetPosition = 585
+        motor.targetPosition = 610
     }
 
     fun goDown() {
@@ -40,6 +40,10 @@ class WobbleGoalLift(override val opMode: OpMode) : RobotModule {
 
     fun goEndGame(){
         motor.targetPosition = 765
+    }
+    fun goBack()
+    {
+        motor.targetPosition = 0
     }
 
     fun move() {

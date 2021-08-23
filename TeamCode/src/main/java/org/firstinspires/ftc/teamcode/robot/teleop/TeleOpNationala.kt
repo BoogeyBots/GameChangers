@@ -57,6 +57,10 @@ class TeleOpNationala : BBLinearOpMode(){
             if(gamepad1.b){
                 get<WobbleGoalLift>().goEndGame()
             }
+            if(gamepad1.a)
+            {
+                get<WobbleGoalLift>().goBack()
+            }
 
 
 
