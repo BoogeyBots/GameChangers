@@ -80,10 +80,10 @@ class testNationalaStangaALBASTRU : BBLinearOpMode() {
             val trajectory1 = robot.trajectoryBuilder(startPose)
                     .lineTo(Vector2d(-9.0, 52.0))
                     .build()
-            get<MotorThrowerModule>().setPower(0.64)
+            get<MotorThrowerModule>().setPower(0.65)
             robot.followTrajectory(trajectory1)
             robot.turn(Math.toRadians(179.0))
-            for(i in 1..3){
+            for(i in 1..4){
                 get<ServoThrowerModule>().open()
                 wait(0.3 )
                 get<ServoThrowerModule>().close()
@@ -91,17 +91,23 @@ class testNationalaStangaALBASTRU : BBLinearOpMode() {
             }
             get<MotorThrowerModule>().setPower(0.0)
             robot.turn(Math.toRadians(-179.0))
+
+            val trajectory4 = robot.trajectoryBuilder(Pose2d(-9.0, 52.0), Math.toRadians(180.0))
+                    .lineTo(Vector2d(-9.0, 62.0))
+                    .build()
+
+            robot.followTrajectory(trajectory4)
             get<WobbleGoalLift>().goDown()
             wait(2.0)
             get<ServoWobble>().ungrab()
             wait(2.0)
             get<WobbleGoalLift>().goBack()
 
-            val trajectory2 = robot.trajectoryBuilder(Pose2d(-9.0, 52.0, Math.toRadians(0.0)))
+            val trajectory2 = robot.trajectoryBuilder(Pose2d(-9.0, 62.0, Math.toRadians(0.0)))
                     .lineTo(Vector2d(-25.0, 52.0))
                     .build()
             robot.followTrajectory(trajectory2)
-            wait(11.0)
+            wait(13.0)
             val trajectory3 = robot.trajectoryBuilder(Pose2d(-25.0, 52.0, Math.toRadians(0.0)))
                     .lineTo(Vector2d(4.0, 36.0))
                     .build()
@@ -117,7 +123,7 @@ class testNationalaStangaALBASTRU : BBLinearOpMode() {
                 get<MotorThrowerModule>().setPower(0.64)
                 robot.turn(Math.toRadians(176.0))
                 wait(1.75)
-                for(i in 1..3){
+                for(i in 1..4){
                     get<ServoThrowerModule>().open()
                     wait(0.3 )
                     get<ServoThrowerModule>().close()
@@ -179,7 +185,7 @@ class testNationalaStangaALBASTRU : BBLinearOpMode() {
                     get<MotorThrowerModule>().setPower(0.64)
                     robot.turn(Math.toRadians(179.0))
                     wait(1.75)
-                    for(i in 1..3){
+                    for(i in 1..4){
                         get<ServoThrowerModule>().open()
                         wait(0.3 )
                         get<ServoThrowerModule>().close()
@@ -205,8 +211,8 @@ class testNationalaStangaALBASTRU : BBLinearOpMode() {
                     wait(0.4)
                     get<ServoThrowerModule>().close()
                     get<MotorThrowerModule>().setPower(0.0)
-                    val trajectory3 = robot.trajectoryBuilder(Pose2d(-18.0, 34.0, Math.toRadians(0.0)))
-                            .lineTo(Vector2d(28.0, 44.0))
+                    val trajectory3 = robot.trajectoryBuilder(Pose2d(-18.0, 34.0, Math.toRadians(185.0)))
+                            .lineToLinearHeading(Pose2d(23.0, 44.0, Math.toRadians(0.0)))
                             .build()
                     robot.followTrajectory(trajectory3)
                     get<WobbleGoalLift>().goDown()
@@ -217,7 +223,7 @@ class testNationalaStangaALBASTRU : BBLinearOpMode() {
                     wait(1.0)
                     get<ServoWobble>().grab()
                     wait(1.0)
-                    val trajectory4 = robot.trajectoryBuilder(Pose2d(28.0, 44.0, Math.toRadians(0.0)))
+                    val trajectory4 = robot.trajectoryBuilder(Pose2d(23.0, 44.0, Math.toRadians(0.0)))
                             .lineTo(Vector2d(12.0, 54.0))
                             .build()
                     robot.followTrajectory(trajectory4)

@@ -14,7 +14,7 @@ class ServoWobble(override val opMode: OpMode) : RobotModule {
 
     override fun init() {
         components["servowobble"] = hardwareMap!!.get(Servo::class.java, "servowobble")
-        servolinear.position = GRAB_POS
+        servolinear.position = 0.1
     }
 
     fun grab() {
