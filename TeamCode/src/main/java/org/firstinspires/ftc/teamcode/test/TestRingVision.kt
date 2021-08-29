@@ -1,10 +1,11 @@
 package com.example.ftclibexamples.VisionSample
 
 import com.arcrobotics.ftclib.vision.UGContourRingPipeline
+import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName
 import org.openftc.easyopencv.*
-
+@Disabled
 class UGContourRingPipelineKtExample : LinearOpMode() {
     companion object {
         val CAMERA_WIDTH = 320 // width  of wanted camera resolution

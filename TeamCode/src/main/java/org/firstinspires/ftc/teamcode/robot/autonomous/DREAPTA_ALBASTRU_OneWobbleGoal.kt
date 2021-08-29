@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.vision.TensorFlowObjectDetection
 import org.opencv.core.Mat
 
 @Autonomous(name = "DREAPTA_ALBASTRU_OneWobbleGoal")
+@Disabled
 class DREAPTA_ALBASTRU_OneWobbleGoal : BBLinearOpMode(){
 
     override val modules: Robot = Robot(setOf(WobbleGoalModule(this, inAuto = true), ServoThrowerModule(this), MotorThrowerModule(this), Recognition(this)))

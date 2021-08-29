@@ -65,13 +65,13 @@ class TeleOpNationala : BBLinearOpMode(){
 
 
             if (gamepad2.x){
-                get<MotorThrowerModule>().setPower(0.75)
+                get<MotorThrowerModule>().setPower(0.65)
             }
             else if(gamepad2.y){
-                get<MotorThrowerModule>().setPower(0.70)
+                get<MotorThrowerModule>().setPower(0.60)
             }
             else if(gamepad2.a){
-                get<MotorThrowerModule>().setPower(0.73)
+                get<MotorThrowerModule>().setPower(0.63)
             }
             else{
                 get<MotorThrowerModule>().setPower(0.0)

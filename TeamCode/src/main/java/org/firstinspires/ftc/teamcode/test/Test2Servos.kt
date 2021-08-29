@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.test
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.Servo
 import org.firstinspires.ftc.teamcode.Robot
@@ -8,6 +9,7 @@ import org.firstinspires.ftc.teamcode.modules.TestModule
 import org.firstinspires.ftc.teamcode.modules.get
 
 @TeleOp
+@Disabled
 class Test2Servos : BBLinearOpMode() {
     override val modules = Robot(setOf(TestModule(this)))
     var resolution = 0.0005

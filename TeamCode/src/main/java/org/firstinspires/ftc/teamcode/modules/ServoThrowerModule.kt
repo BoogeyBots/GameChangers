@@ -11,14 +11,14 @@ class ServoThrowerModule(override val opMode: OpMode) : RobotModule {
 
     override fun init() {
         components["servo_thrower"] = hardwareMap!!.get(Servo::class.java, "servo_thrower")
-        servo.position = 0.7
+        servo.position = 0.5
     }
 
     fun close(){
-        servo.position = 0.7
+        servo.position = 0.4
     }
 
     fun open(){
-        servo.position = 0.37
+        servo.position = 0.18
     }
 }

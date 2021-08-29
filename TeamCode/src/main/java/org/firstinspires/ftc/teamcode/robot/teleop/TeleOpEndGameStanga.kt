@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.robot.teleop
 
 import com.acmerobotics.roadrunner.geometry.Pose2d
 import com.acmerobotics.roadrunner.geometry.Vector2d
+import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.util.ElapsedTime
@@ -15,6 +16,7 @@ import org.firstinspires.ftc.teamcode.modules.ServoThrowerModule
 import org.firstinspires.ftc.teamcode.modules.WobbleGoalModule
 
 @TeleOp()
+@Disabled
 class TeleOpEndGameStanga : BBLinearOpMode(){
     override val modules = Robot(setOf(WobbleGoalModule(this, inAuto = false), MotorThrowerModule(this), ServoThrowerModule(this), IntakeModule(this)))
 

@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -18,6 +20,7 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
 
 @Config
 @TeleOp
+@Disabled
 public class ShootingConsistencyTest extends LinearOpMode {
     public static double MOTOR_TICKS_PER_REV = 28;
     public static double MOTOR_MAX_RPM = 5400;

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.test
 
 import com.acmerobotics.dashboard.config.Config
+import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorEx
@@ -14,6 +15,7 @@ import org.firstinspires.ftc.teamcode.modules.TestModule
 
 @Config
 @TeleOp(group="drive")
+@Disabled
 class TestDcMotor : BBOpMode(){
     override val modules: Robot = Robot(setOf(TestModule(this), ServoThrowerModule(this)))
     lateinit var motor: DcMotorEx

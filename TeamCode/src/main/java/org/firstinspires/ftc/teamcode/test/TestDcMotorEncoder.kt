@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.test
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorEx
@@ -9,6 +10,7 @@ import org.firstinspires.ftc.teamcode.bbopmode.BBOpMode
 import org.firstinspires.ftc.teamcode.modules.TestModule
 
 @TeleOp()
+@Disabled
 class TestDcMotorEncoder : BBOpMode(){
     override val modules: Robot = Robot(setOf(TestModule(this)))
     lateinit var motor: DcMotorEx
